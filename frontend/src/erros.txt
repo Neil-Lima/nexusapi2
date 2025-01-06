@@ -1,0 +1,222 @@
+Error: A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+https://react.dev/link/hydration-mismatch
+
+  ...
+    <InnerScrollAndFocusHandler segmentPath={[...]} focusAndScrollRef={{apply:false, ...}}>
+      <ErrorBoundary errorComponent={undefined} errorStyles={undefined} errorScripts={undefined}>
+        <LoadingBoundary hasLoading={false} loading={undefined} loadingStyles={undefined} loadingScripts={undefined}>
+          <NotFoundBoundary notFound={undefined} notFoundStyles={undefined}>
+            <RedirectBoundary>
+              <RedirectErrorBoundary router={{...}}>
+                <InnerLayoutRouter parallelRouterKey="children" url="/sales" tree={[...]} childNodes={Map} ...>
+                  <ClientPageRoot Component={function SalesPage} searchParams={{}} params={{}}>
+                    <SalesPage params={Promise} searchParams={Promise}>
+                      <ThemeProvider>
+                        <SalesMainComp>
+                          <styled.div theme={{...}}>
+                            <div
++                             className="sc-dEkLRj fhdJWJ"
+-                             className="sc-DvaoS kRHYgk"
+                              ref={null}
+                            >
+                              <Container fluid={true}>
+                                <div ref={null} className="container-...">
+                                  <SalesHeaderComp filters={{category:"", ...}} onSearch={function onSearch} ...>
+                                    <styled.div theme={{...}}>
+                                      <div
++                                       className="sc-blHHSb kgUtRH"
+-                                       className="sc-dOEwtB kCfijj"
+                                        ref={null}
+                                      >
+                                        <styled.div>
+                                          <div
++                                           className="sc-eMwmJz fxrfEc"
+-                                           className="sc-etPtWW dELrSD"
+                                            ref={null}
+                                          >
+                                        <Styled(Button) theme={{...}}>
+                                          <Button className="sc-fAUdSK ..." ref={null}>
+                                            <button
+                                              type="button"
+                                              disabled={false}
+                                              ref={null}
++                                             className="sc-fAUdSK fBTmaO btn btn-primary"
+-                                             className="sc-cwJYja dgCqws btn btn-primary"
+                                            >
+                                  <Row>
+                                    <div ref={null} className="row">
+                                      <Col lg={3}>
+                                        <div ref={null} className="col-lg-3">
+                                          <styled.div>
+                                            <div
++                                             className="sc-kZrBCu icOOCp"
+-                                             className="sc-dqCRwF gQlulb"
+                                              ref={null}
+                                            >
+                                              <SalesCategoryComp categories={{...}} selectedCategory="" ...>
+                                                <styled.div theme={{...}}>
+                                                  <div
++                                                   className="sc-fFoeYl dRpVjY"
+-                                                   className="sc-geoRQH fEYbbl"
+                                                    ref={null}
+                                                  >
+                                                    <styled.div active={false} onClick={function onClick} theme={{...}}>
+                                                      <div
+                                                        active={false}
+                                                        onClick={function onClick}
++                                                       className="sc-gQaihK fAgihN"
+-                                                       className="sc-kEsJEW dYVoql"
+                                                        ref={null}
+                                                      >
++                                                       Eletrônicos
+                                                    <styled.div active={false} onClick={function onClick} theme={{...}}>
+                                                      <div
+                                                        active={false}
+                                                        onClick={function onClick}
++                                                       className="sc-gQaihK fAgihN"
+-                                                       className="sc-kEsJEW dYVoql"
+                                                        ref={null}
+                                                      >
++                                                       Moda
+                                                    <styled.div active={false} onClick={function onClick} theme={{...}}>
+                                                      <div
+                                                        active={false}
+                                                        onClick={function onClick}
++                                                       className="sc-gQaihK fAgihN"
+-                                                       className="sc-kEsJEW dYVoql"
+                                                        ref={null}
+                                                      >
++                                                       Imóveis
+                                                    <styled.div active={false} onClick={function onClick} theme={{...}}>
+                                                      <div
+                                                        active={false}
+                                                        onClick={function onClick}
++                                                       className="sc-gQaihK fAgihN"
+-                                                       className="sc-kEsJEW dYVoql"
+                                                        ref={null}
+                                                      >
++                                                       Veículos
+                                                    <styled.div active={false} onClick={function onClick} theme={{...}}>
+                                                      <div
+                                                        active={false}
+                                                        onClick={function onClick}
++                                                       className="sc-gQaihK fAgihN"
+-                                                       className="sc-kEsJEW dYVoql"
+                                                        ref={null}
+                                                      >
++                                                       Serviços
+                                              <SalesFilterAdvancedComp category="" filters={{category:"", ...}} ...>
+                                                <styled.div theme={{...}}>
+                                                  <div
++                                                   className="sc-dntaoT hobVwm"
+-                                                   className="sc-kpAHqd bZMNl"
+                                                    ref={null}
+                                                  >
+                                                    <styled.h6>
+                                                      <h6
++                                                       className="sc-ghWlax bfmiwt"
+-                                                       className="sc-bCztur kziqHA"
+                                                        ref={null}
+                                                      >
++                                                       Filtros Avançados
+                                                    ...
+                                                      <div aria-expanded={null} ref={function attachRef} ...>
+                                                        <div ref={null} className="accordion-...">
+                                                          <styled.input value={{min:0,max:100000}} ...>
+                                                            <input
+                                                              value={{min:0,max:100000}}
+                                                              onChange={function onChange}
+                                                              min={0}
+                                                              max={100000}
+                                                              step={100}
+                                                              type="range"
++                                                             className="sc-bbQqnZ gXufbw"
+-                                                             className="sc-fUEImY kYhISv"
+                                                              ref={null}
+                                                            >
+                                              <SalesPriceRangeComp range={{min:0,max:100000}} ...>
+                                                <styled.div theme={{...}}>
+                                                  <div
++                                                   className="sc-drVZOg sbZGF"
+-                                                   className="sc-iPHsxv gwqYQj"
+                                                    ref={null}
+                                                  >
+                                                    <h6>
+                                                    <FormGroup>
+                                                    <FormGroup>
+                                                    <styled.input type="range" value={100000} ...>
+                                                      <input
+                                                        type="range"
+                                                        value={100000}
+                                                        onChange={function onChange}
+                                                        min={0}
+                                                        max={100000}
++                                                       className="sc-bbQqnZ gXufbw"
+-                                                       className="sc-fUEImY kYhISv"
+                                                        ref={null}
+                                                      >
+                                              <SalesConditionComp selectedConditions={[...]} ...>
+                                                <styled.div theme={{...}}>
+                                                  <div
++                                                   className="sc-hJRrWL jtSplY"
+-                                                   className="sc-fqujGp bFYcoG"
+                                                    ref={null}
+                                                  >
+                                              <SalesLocationFilterComp selectedLocation={null} ...>
+                                                <styled.div theme={{...}}>
+                                                  <div
++                                                   className="sc-kEfuZE dLEWdQ"
+-                                                   className="sc-bOdUTf iufGpE"
+                                                    ref={null}
+                                                  >
+                                                    <Styled(FormSelect) value="" onChange={function onChange}>
+                                                      <FormSelect value="" onChange={function onChange} ...>
+                                                        <select
+                                                          value=""
+                                                          onChange={function onChange}
+                                                          size={undefined}
+                                                          ref={null}
++                                                         className="sc-dhCplO buitOO form-select"
+-                                                         className="sc-duWCru clarSM form-select"
+                                                          id={undefined}
+                                                        >
+                                              ...
+                                      <Col lg={9}>
+                                        <div ref={null} className="col-lg-9">
+                                          <styled.div>
+                                            <div
++                                             className="sc-diYFot gwFcul"
+-                                             className="sc-eXvyUU dXtTAi"
+                                              ref={null}
+                                            >
+                                              <SalesListComp products={[...]} viewMode="grid">
+                                                <styled.div>
+                                                  <div
++                                                   className="sc-kLhKbu cUNPdv"
+-                                                   className="sc-iXGjfC foHrhp"
+                                                    ref={null}
+                                                  >
+                  ...
+
+    at createUnhandledError (http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_34bfc0._.js:744:19)
+    at handleClientError (http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_34bfc0._.js:846:56)
+    at console.error (http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_34bfc0._.js:977:56)
+    at emitPendingHydrationWarnings (http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_1f56dc._.js:2759:103)
+    at completeWork (http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_1f56dc._.js:7217:102)
+    at runWithFiberInDEV (http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_1f56dc._.js:631:20)
+    at completeUnitOfWork (http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_1f56dc._.js:7987:23)
+    at performUnitOfWork (http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_1f56dc._.js:7929:28)
+    at workLoopConcurrent (http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_1f56dc._.js:7923:58)
+    at renderRootConcurrent (http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_1f56dc._.js:7905:71)
+    at performWorkOnRoot (http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_1f56dc._.js:7544:112)
+    at performWorkOnRootViaSchedulerTask (http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_1f56dc._.js:8378:9)
+    at MessagePort.performWorkUntilDeadline (http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_107ce8._.js:2352:64)

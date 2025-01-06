@@ -1,0 +1,288 @@
+MAPA DE RELACIONAMENTOS - REDE SOCIAL NEXUS API
+
+[USER] ═════════════════════════════════════════════════════ │ │ │ │ ├── [POSTS] ────── [LIKES] ────── [COMMENTS] ──── [SHARES] │
+├── [FRIENDS] ═══ [FRIENDSHIP_REQUESTS] │ ├── [MESSAGES] ────── [CONVERSATIONS] │ ├── [NOTIFICATIONS] │ ├══ [COMMUNITIES] ────── [COMMUNITY_MEMBERS] │ │ │ [COMMUNITY_POSTS] │ ├══ [GROUPS] ────── [GROUP_MEMBERS] ────── [GROUP_ROLES] │ │ │ │ [GROUP_POSTS] [GROUP_FILES] │ ├══ [PAGES] ────── [PAGE_FOLLOWERS] ────── [PAGE_TEAM] │ │ │ │ [PAGE_POSTS] [PAGE_PRODUCTS] │ ├══ [EVENTS] ────── [EVENT_ATTENDEES] ────── [EVENT_TICKETS] │ │ │ │ [EVENT_SESSIONS] [EVENT_POLLS] │ ├── [STORIES] ────── [STORY_VIEWERS] │ ├── [DATING] ────── [MATCHES] ────── [DATING_PREFERENCES] │ ├── [MEDIA] ────── [ALBUMS] │ └── [RELATIONSHIP] ────── [RELATIONSHIP_TIMELINE]
+
+Legenda: ═══ : Muitos para Muitos ──── : Um para Muitos ─── : Um para Um
+
+COMECE AQUI
+
+CONFIGURAÇÕES DO SISTEMA obs: nenhum desses arquivos devem ser feitos com AWS ou qualquer coisa que leve cloud, somente local src/config/ ├── cors.config.ts // Configuração de Cross-Origin Resource Sharing ├── database.config.ts // Configuração do MongoDB local ├── jwt.config.ts // Configuração de tokens JWT e autenticação ├── uploads.config.ts // Configuração de upload de arquivos local ├── socket.config.ts // Configuração de WebSockets para chat/notificações ├── mail.config.ts // Configuração de envio de emails local ├── storage.config.ts // Configuração de armazenamento local de arquivos ├── cache.config.ts // Configuração de cache local ├── queue.config.ts // Configuração de filas para processamento local ├── validation.config.ts // Configuração de validações globais ├── logging.config.ts // Configuração de logs do sistema local └── security.config.ts // Configuração de segurança (rate limit, helmet)
+
+FUNCIONALIDADES:
+
+cors.config.ts: Gerencia origens permitidas e métodos HTTP
+database.config.ts: Conexão MongoDB local, pools e timeouts
+jwt.config.ts: Chaves secretas, tempo de expiração tokens
+uploads.config.ts: Limites de upload, tipos permitidos somente base64 ou URL
+socket.config.ts: Configurações de WebSocket para chat
+mail.config.ts: SMTP local, templates de email
+storage.config.ts: Configurações de armazenamento em disco local
+cache.config.ts: Configurações de cache em memória
+queue.config.ts: Filas para processamento assíncrono local
+validation.config.ts: Regras de validação globais
+logging.config.ts: Níveis de log, formatos, destinos locais
+security.config.ts: Rate limiting, headers seguros
+DETALHAMENTO DAS TABELAS:
+
+USER
+id: ObjectId
+username: string
+email: string
+password: string
+name: string
+surname: string
+profileImage: string
+coverImage: string
+bio: string
+country: string
+state: string
+city: string
+birthDate: Date
+gender: string
+interests: string[]
+privacy: { profile: 'public' | 'friends' | 'private' posts: 'public' | 'friends' | 'private' friends: 'public' | 'friends' | 'private' }
+createdAt: Date
+updatedAt: Date
+
+POST
+id: ObjectId
+userId: Ref
+content: string
+media: string[]
+type: 'text' | 'image' | 'video' | 'poll'
+privacy: 'public' | 'friends' | 'private'
+likes: Ref[]
+comments: Ref[]
+shares: number
+createdAt: Date
+updatedAt: Date
+
+COMMENT
+id: ObjectId
+postId: Ref
+userId: Ref
+content: string
+likes: Ref[]
+replies: Ref[]
+createdAt: Date
+
+MESSAGE
+id: ObjectId
+senderId: Ref
+receiverId: Ref
+content: string
+type: 'text' | 'image' | 'video' | 'audio'
+media: string
+read: boolean
+createdAt: Date
+
+COMMUNITY
+id: ObjectId
+name: string
+description: string
+category: string
+privacy: 'public' | 'private'
+image: string
+coverImage: string
+owner: Ref
+admins: Ref[]
+members: Ref[]
+posts: Ref[]
+topics: Ref[]
+rules: string[]
+createdAt: Date
+updatedAt: Date
+
+TOPIC
+id: ObjectId
+communityId: Ref
+userId: Ref
+title: string
+content: string
+isPinned: boolean
+likes: Ref[]
+replies: number
+createdAt: Date
+
+NOTIFICATION
+id: ObjectId
+userId: Ref
+type: 'like' | 'comment' | 'follow' | 'mention' | 'message'
+referenceId: ObjectId
+read: boolean
+createdAt: Date
+PAGE
+id: ObjectId
+name: string
+category: string
+description: string
+profileImage: string
+coverImage: string
+owner: Ref
+admins: Ref[]
+followers: Ref[]
+posts: Ref[]
+rating: number
+contact: { email: string phone: string website: string }
+createdAt: Date
+updatedAt: Date
+
+STORY
+id: ObjectId
+userId: Ref
+type: 'image' | 'video'
+media: string
+viewers: Ref[]
+duration: number
+expiresAt: Date
+createdAt: Date
+
+DATING
+id: ObjectId
+userId: Ref
+preferences: { gender: string[] ageRange: { min: number, max: number } distance: number interests: string[] }
+matches: Ref[]
+likes: Ref[]
+dislikes: Ref[]
+blocked: Ref[]
+visible: boolean
+createdAt: Date
+updatedAt: Date
+
+MEDIA
+id: ObjectId
+userId: Ref
+type: 'image' | 'video'
+url: string
+thumbnail: string
+album: string
+description: string
+tags: string[]
+privacy: 'public' | 'friends' | 'private'
+createdAt: Date
+
+FRIENDSHIP
+id: ObjectId
+requesterId: Ref
+receiverId: Ref
+status: 'pending' | 'accepted' | 'rejected' | 'blocked'
+createdAt: Date
+updatedAt: Date
+
+13.RELATIONSHIP
+id: ObjectId
+userId1: Ref
+userId2: Ref
+status: 'dating' | 'engaged' | 'married'
+anniversary: Date
+privacy: 'public' | 'friends' | 'private'
+photos: string[]
+timeline: [{ event: string date: Date description: string media: string[] }]
+confirmed: boolean (ambos precisam confirmar)
+createdAt: Date
+updatedAt: Date
+Relacionamentos:
+
+User -> Relationship: Um para Um
+Relationship -> Timeline Events: Um para Muitos
+Relationship -> Photos: Um para Muitos
+Este schema permite:
+
+Diferentes status de relacionamento
+Data de aniversário do casal
+Linha do tempo com eventos importantes
+Galeria de fotos do casal
+Configurações de privacidade
+Confirmação mútua do status
+
+14.GROUP
+id: ObjectId
+name: string
+description: string
+type: 'social' | 'business' | 'family' | 'education'
+privacy: 'public' | 'private' | 'secret'
+image: string
+coverImage: string
+owner: Ref
+settings: { postApproval: boolean memberApproval: boolean memberInvite: boolean chatEnabled: boolean eventsEnabled: boolean filesEnabled: boolean }
+roles: [{ name: string permissions: string[] users: Ref[] }]
+members: [{ user: Ref role: string joinedAt: Date }]
+posts: Ref[]
+files: [{ name: string type: string url: string uploadedBy: Ref uploadedAt: Date }]
+events: [{ title: string description: string date: Date location: string attendees: Ref[] }]
+chat: { enabled: boolean messages: Ref[] }
+createdAt: Date
+updatedAt: Date
+Relacionamentos:
+
+Group -> User (owner): Um para Um
+Group -> Members: Um para Muitos
+Group -> Posts: Um para Muitos
+Group -> Events: Um para Muitos
+Group -> Files: Um para Muitos
+Group -> Chat Messages: Um para Muitos
+
+15.PAGE
+id: ObjectId
+name: string
+username: string (url amigável)
+category: 'business' | 'brand' | 'artist' | 'entertainment' | 'cause'
+subcategory: string
+description: string
+profileImage: string
+coverImage: string
+verified: boolean
+contact: { email: string phone: string website: string address: { street: string city: string state: string country: string zipCode: string } workingHours: [{ day: string open: string close: string }] }
+socialLinks: { facebook: string instagram: string twitter: string linkedin: string youtube: string }
+team: [{ user: Ref role: 'owner' | 'admin' | 'editor' | 'moderator' permissions: string[] }]
+stats: { followers: number views: number engagement: number reach: number }
+features: { shop: boolean events: boolean blog: boolean reviews: boolean booking: boolean }
+products: [{ name: string description: string price: number images: string[] category: string available: boolean }]
+events: [{ title: string description: string date: Date location: string tickets: { available: boolean price: number quantity: number } attendees: Ref[] }]
+reviews: [{ user: Ref rating: number comment: string date: Date response: { content: string date: Date } }]
+posts: Ref[]
+media: { photos: string[] videos: string[] albums: [{ name: string cover: string media: string[] }] }
+insights: { demographics: { age: Object gender: Object location: Object } interactions: { likes: number comments: number shares: number } traffic: { views: number unique: number sources: Object } }
+settings: { messaging: boolean comments: boolean tagging: boolean notifications: boolean }
+createdAt: Date
+updatedAt: Date
+Relacionamentos:
+
+Page -> User (team): Um para Muitos
+Page -> Posts: Um para Muitos
+Page -> Products: Um para Muitos
+Page -> Events: Um para Muitos
+Page -> Reviews: Um para Muitos
+Page -> Media: Um para Muitos
+
+16.EVENT
+id: ObjectId
+title: string
+type: 'presential' | 'online' | 'hybrid'
+category: 'party' | 'conference' | 'workshop' | 'concert' | 'sports' | 'meetup'
+description: string
+coverImage: string
+gallery: string[]
+host: { type: 'user' | 'page' | 'group' ref: ObjectId }
+schedule: { startDate: Date endDate: Date timezone: string sessions: [{ title: string description: string speakers: [{ name: string bio: string photo: string }] startTime: Date endTime: Date location: string }] }
+location: { type: 'physical' | 'virtual' address: { street: string city: string state: string country: string zipCode: string coordinates: { lat: number lng: number } } onlineLink: string streamingPlatform: string }
+tickets: [{ type: string description: string price: number quantity: number available: number benefits: string[] saleStart: Date saleEnd: Date }]
+attendees: [{ user: Ref status: 'confirmed' | 'pending' | 'cancelled' ticketType: string purchaseDate: Date checkIn: { status: boolean date: Date } }]
+coHosts: [{ type: 'user' | 'page' ref: ObjectId role: string }]
+sponsors: [{ name: string logo: string website: string level: 'gold' | 'silver' | 'bronze' }]
+media: { photos: string[] videos: string[] livestream: { platform: string link: string } }
+discussions: [{ user: Ref content: string date: Date replies: [{ user: Ref content: string date: Date }] }]
+polls: [{ question: string options: string[] votes: [{ user: Ref option: number }] endDate: Date }]
+settings: { privacy: 'public' | 'private' | 'invite-only' guestList: boolean comments: boolean sharing: boolean minAge: number }
+stats: { views: number interested: number going: number checkedIn: number engagement: number }
+createdAt: Date
+updatedAt: Date
+Relacionamentos:
+
+Event -> User/Page/Group (host): Um para Um
+Event -> Attendees: Um para Muitos
+Event -> Discussions: Um para Muitos
+Event -> Media: Um para Muitos
+Event -> Polls: Um para Muitos
+
