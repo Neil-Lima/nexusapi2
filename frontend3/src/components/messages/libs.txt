@@ -1,0 +1,16 @@
+Para mensagens em tempo real:
+Socket.io
+Firebase Realtime Database
+PusherJS
+WebSockets nativos
+
+Para chamadas de vídeo/áudio:
+WebRTC (API nativa do navegador)
+Twilio
+Agora.io
+Daily.co
+
+Para upload e compartilhamento de mídia:
+AWS S3
+Firebase Storage
+Cloudinary
