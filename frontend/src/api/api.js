@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const API_CONFIG = {
-  baseURL: 'http://localhost:5000',
+  baseURL: 'https://nexusapisocial.netlify.app',
   timeout: 30000,
   headers: {
     'Content-Type': 'application/json',
