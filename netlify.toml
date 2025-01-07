@@ -7,7 +7,7 @@
   CI = "true"
   NODE_VERSION = "18"
   NEXT_TELEMETRY_DISABLED = "1"
-  NEXT_PUBLIC_API_URL = "sua_url_da_api_vercel"
+  NEXT_PUBLIC_API_URL = "https://nexusapibackend.vercel.app"
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
