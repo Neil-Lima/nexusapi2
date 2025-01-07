@@ -9,6 +9,13 @@ export const PostContainer = styled.div`
   margin-bottom: 20px;
   overflow: hidden;
   box-shadow: ${props => props.theme.boxShadow};
+  width: 100%;
+  max-width: 100%;
+  
+  @media (max-width: 768px) {
+    border-radius: 8px;
+    margin-bottom: 15px;
+  }
 `;
 
 export const PostHeader = styled.div`
@@ -16,6 +23,10 @@ export const PostHeader = styled.div`
   align-items: center;
   padding: 15px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  
+  @media (max-width: 576px) {
+    padding: 12px;
+  }
 `;
 
 export const UserAvatar = styled.img`
@@ -25,6 +36,11 @@ export const UserAvatar = styled.img`
   margin-right: 10px;
   border: 2px solid rgba(255, 255, 255, 0.1);
   object-fit: cover;
+  
+  @media (max-width: 576px) {
+    width: 35px;
+    height: 35px;
+  }
 `;
 
 export const UserInfo = styled.div`
@@ -33,9 +49,16 @@ export const UserInfo = styled.div`
     margin: 0;
     color: ${props => props.theme.textColor};
     font-weight: 600;
+    
+    @media (max-width: 576px) {
+      font-size: 14px;
+    }
   }
   small {
     color: rgba(255, 255, 255, 0.7);
+    @media (max-width: 576px) {
+      font-size: 12px;
+    }
   }
 `;
 
@@ -54,12 +77,21 @@ export const PostDropdown = styled.div`
 
 export const PostBody = styled.div`
   padding: 15px;
+  
+  @media (max-width: 576px) {
+    padding: 12px;
+  }
 `;
 
 export const PostText = styled.p`
   color: ${props => props.theme.textColor};
   margin-bottom: 15px;
   line-height: 1.5;
+  
+  @media (max-width: 576px) {
+    font-size: 14px;
+    margin-bottom: 12px;
+  }
 `;
 
 export const MediaContainer = styled.div`
@@ -70,17 +102,26 @@ export const MediaContainer = styled.div`
   
   video {
     width: 100%;
-    max-height: 500px;
+    max-height: 70vh;
     object-fit: contain;
+    
+    @media (max-width: 768px) {
+      max-height: 50vh;
+    }
   }
 `;
 
 export const PostImage = styled.img`
   width: 100%;
-  max-height: 500px;
+  max-height: 70vh;
   border-radius: ${props => props.theme.borderRadius};
   margin-bottom: 15px;
   object-fit: contain;
+  
+  @media (max-width: 768px) {
+    max-height: 50vh;
+    margin-bottom: 12px;
+  }
 `;
 
 export const AudioPlayer = styled.div`
@@ -93,6 +134,11 @@ export const AudioPlayer = styled.div`
   audio {
     width: 100%;
   }
+  
+  @media (max-width: 576px) {
+    padding: 8px;
+    margin-bottom: 12px;
+  }
 `;
 
 export const PollContainer = styled.div`
@@ -100,6 +146,11 @@ export const PollContainer = styled.div`
   flex-direction: column;
   gap: 10px;
   margin-bottom: 15px;
+  
+  @media (max-width: 576px) {
+    gap: 8px;
+    margin-bottom: 12px;
+  }
 `;
 
 export const PollOption = styled.div`
@@ -119,30 +170,30 @@ export const PollOption = styled.div`
     background: rgba(255, 255, 255, 0.2);
     font-weight: bold;
   `}
-`;
-
-export const PollBar = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: ${props => props.$percentage}%;
-  background: ${props => props.$hasVoted ? 
-    `linear-gradient(${props.theme.gradientDirection}, ${props.theme.primaryColor}, ${props.theme.secondaryColor})` : 
-    'rgba(255, 255, 255, 0.1)'};
-  opacity: 0.3;
-  z-index: 1;
+  
+  @media (max-width: 576px) {
+    padding: 8px 12px;
+    font-size: 14px;
+  }
 `;
 
 export const PostFooter = styled.div`
   padding: 15px;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
+  
+  @media (max-width: 576px) {
+    padding: 12px;
+  }
 `;
 
 export const PostActions = styled.div`
   display: flex;
   justify-content: space-between;
   margin-bottom: 15px;
+  
+  @media (max-width: 576px) {
+    margin-bottom: 12px;
+  }
 `;
 
 export const ActionButton = styled.button`
@@ -161,12 +212,25 @@ export const ActionButton = styled.button`
     background: rgba(255, 255, 255, 0.1);
     color: ${props => props.theme.primaryColor};
   }
+  
+  @media (max-width: 576px) {
+    padding: 6px 10px;
+    font-size: 13px;
+    
+    svg {
+      font-size: 16px;
+    }
+  }
 `;
 
 export const CommentSection = styled.div`
   .comment {
     display: flex;
     margin-bottom: 15px;
+    
+    @media (max-width: 576px) {
+      margin-bottom: 12px;
+    }
     
     .comment-content {
       background: rgba(255, 255, 255, 0.1);
@@ -175,10 +239,19 @@ export const CommentSection = styled.div`
       flex: 1;
       margin-left: 10px;
       
+      @media (max-width: 576px) {
+        padding: 8px 12px;
+        font-size: 13px;
+      }
+      
       h6 {
         margin: 0;
         color: ${props => props.theme.textColor};
         font-weight: 600;
+        
+        @media (max-width: 576px) {
+          font-size: 14px;
+        }
       }
       
       p {
@@ -188,6 +261,10 @@ export const CommentSection = styled.div`
       
       small {
         color: rgba(255, 255, 255, 0.7);
+        
+        @media (max-width: 576px) {
+          font-size: 12px;
+        }
       }
     }
   }
@@ -199,6 +276,11 @@ export const CommentInput = styled.div`
   gap: 10px;
   margin-top: 15px;
   
+  @media (max-width: 576px) {
+    margin-top: 12px;
+    gap: 8px;
+  }
+  
   input {
     flex: 1;
     background: rgba(255, 255, 255, 0.1);
@@ -206,6 +288,11 @@ export const CommentInput = styled.div`
     padding: 10px 15px;
     border-radius: 20px;
     color: ${props => props.theme.textColor};
+    
+    @media (max-width: 576px) {
+      padding: 8px 12px;
+      font-size: 14px;
+    }
     
     &::placeholder {
       color: rgba(255, 255, 255, 0.5);
