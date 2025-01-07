@@ -1,7 +1,11 @@
 import { registerAs } from '@nestjs/config';
 
 export const corsConfig = {
-  origin: ['http://localhost:3000', 'http://localhost:3002'],
+  origin: [
+    'http://localhost:3000',
+    'http://localhost:3002',
+    'https://nexusapisocial.netlify.app'
+  ],
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   exposedHeaders: ['Authorization'],
