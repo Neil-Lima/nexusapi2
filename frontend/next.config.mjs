@@ -6,7 +6,7 @@ const nextConfig = {
       {
         protocol: 'http',
         hostname: 'localhost',
-        port: '3333',
+        port: '5000',
         pathname: '/**',
       },
     ],
@@ -15,10 +15,12 @@ const nextConfig = {
     styledComponents: true,
   },
   reactStrictMode: true,
-  // Configuração do webpack como função assíncrona
-  webpack: async (config, { isServer }) => {
+  webpack: (config, { isServer }) => {
     config.resolve = {
       ...config.resolve,
+      alias: {
+        ...config.resolve.alias,
+      },
       fallback: {
         ...config.resolve.fallback,
         fs: false,
@@ -34,15 +36,8 @@ const nextConfig = {
     };
     return config;
   },
-  typescript: {
-    ignoreBuildErrors: true,
-  },
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
-  // Desabilitar checagem de tipos durante o build
   experimental: {
-    typedRoutes: false,
+    // Removed deprecated options
   }
 };
 

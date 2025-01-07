@@ -3,6 +3,11 @@ import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { useTheme } from '@/context/theme/ThemeContext';
 import { GradientBackground } from '@/styles/GlobalStyles';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { fas } from '@fortawesome/free-solid-svg-icons';
+
+// Inicialização do FontAwesome
+library.add(fas);
 
 // Componentes Globais
 import NavMenuComp from '@/shared/navbar/components/NavMenuComp';
