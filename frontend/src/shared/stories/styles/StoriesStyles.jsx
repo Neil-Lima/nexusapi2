@@ -16,16 +16,30 @@ export const StoriesContainer = styled.div`
   .card-header {
     background: transparent;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 15px;
     
     h5 {
       margin: 0;
       color: ${props => props.theme.textColor};
+      font-size: 18px;
+    }
+
+    @media (max-width: 576px) {
+      padding: 10px;
+      
+      h5 {
+        font-size: 16px;
+      }
     }
   }
 
   .card-body {
     padding: 1rem;
     position: relative;
+
+    @media (max-width: 576px) {
+      padding: 0.5rem;
+    }
   }
 `;
 
@@ -39,6 +53,15 @@ export const StoriesWrapper = styled.div`
 
   &::-webkit-scrollbar {
     display: none;
+  }
+
+  @media (max-width: 768px) {
+    gap: 8px;
+  }
+
+  @media (max-width: 576px) {
+    gap: 6px;
+    padding: 5px 0;
   }
 `;
 
@@ -59,6 +82,16 @@ export const StoryItem = styled.div`
     width: 100%;
     height: 100%;
     object-fit: cover;
+  }
+
+  @media (max-width: 768px) {
+    min-width: 100px;
+    height: 180px;
+  }
+
+  @media (max-width: 576px) {
+    min-width: 80px;
+    height: 140px;
   }
 `;
 
@@ -96,6 +129,33 @@ export const StoryUser = styled.div`
     text-overflow: ellipsis;
     max-width: 100%;
   }
+
+  @media (max-width: 768px) {
+    .user-avatar {
+      width: 35px;
+      height: 35px;
+      border-width: 2px;
+    }
+    
+    span {
+      font-size: 11px;
+    }
+  }
+
+  @media (max-width: 576px) {
+    bottom: 5px;
+    left: 5px;
+    right: 5px;
+
+    .user-avatar {
+      width: 30px;
+      height: 30px;
+    }
+    
+    span {
+      font-size: 10px;
+    }
+  }
 `;
 
 export const CreateStory = styled(StoryItem)`
@@ -117,6 +177,34 @@ export const CreateStory = styled(StoryItem)`
 
     span {
       font-size: 12px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .create-story-content {
+      gap: 8px;
+
+      svg {
+        font-size: 20px;
+      }
+
+      span {
+        font-size: 11px;
+      }
+    }
+  }
+
+  @media (max-width: 576px) {
+    .create-story-content {
+      gap: 5px;
+
+      svg {
+        font-size: 18px;
+      }
+
+      span {
+        display: none;
+      }
     }
   }
 `;
@@ -142,5 +230,16 @@ export const NavigationButton = styled.button`
   &:hover {
     transform: translateY(-50%) scale(1.1);
     box-shadow: ${props => props.theme.boxShadow};
+  }
+
+  @media (max-width: 768px) {
+    width: 25px;
+    height: 25px;
+  }
+
+  @media (max-width: 576px) {
+    width: 20px;
+    height: 20px;
+    ${props => props.direction === 'left' ? 'left: 5px;' : 'right: 5px;'};
   }
 `;
