@@ -1,8 +1,9 @@
 'use client';
-import React from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
+import React, { useState } from 'react';
+import { Container, Row, Col, Button } from 'react-bootstrap';
 import { useTheme } from '@/context/theme/ThemeContext';
 import { GradientBackground } from '@/styles/GlobalStyles';
+import styled from 'styled-components';
 
 // Componentes Globais
 import NavMenuComp from '@/shared/navbar/components/NavMenuComp';
@@ -18,20 +19,55 @@ import ProfileStatsCardComp from '@/shared/profile/components/ProfileStatsCardCo
 import MenuListComp from '@/shared/profile/components/MenuListComp';
 import ProfileVisitorsComp from '@/shared/visitors/components/ProfileVisitorsComp';
 
+const SidebarButton = styled(Button)`
+  position: fixed;
+  left: 20px;
+  top: 80px;
+  z-index: 1000;
+  display: none;
+  @media (max-width: 991px) {
+    display: block;
+  }
+`;
+
+const Sidebar = styled(Col)`
+  transition: transform 0.3s ease-in-out;
+  background: ${props => props.theme === 'dark' ? '#1a1a1a' : '#fff'};
+  @media (max-width: 991px) {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    z-index: 999;
+    padding: 80px 15px;
+    transform: translateX(${props => props.isOpen ? '0' : '-100%'});
+    box-shadow: ${props => props.isOpen ? '2px 0 5px rgba(0,0,0,0.2)' : 'none'};
+  }
+`;
+
 export default function FeedMainComp() {
   const { theme } = useTheme();
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
 
   return (
     <>
       <NavMenuComp />
       <GradientBackground theme={theme}>     
+        <SidebarButton 
+          onClick={toggleSidebar}
+          variant={theme === 'dark' ? 'light' : 'dark'}
+        >
+          {sidebarOpen ? '✕' : '☰'}
+        </SidebarButton>
         <Container>
           <Row>
-            <Col lg={3}>
+            <Sidebar lg={3} theme={theme} isOpen={sidebarOpen}>
               <ProfileCardComp theme={theme}/>
               <ProfileStatsCardComp theme={theme}/>
               <MenuListComp theme={theme} /> 
-            </Col>
+            </Sidebar>
             <Col lg={6}>
               <ProfileVisitorsComp />
               <StoriesComp />
