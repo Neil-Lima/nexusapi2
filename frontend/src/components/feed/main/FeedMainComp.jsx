@@ -2,8 +2,7 @@
 import React, { useState } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { useTheme } from '@/context/theme/ThemeContext';
-import { GradientBackground } from '@/styles/GlobalStyles';
-import styled from 'styled-components';
+import { GradientBackground, ToggleButton, SidebarColumn, Overlay } from '@/styles/GlobalStyles';
 
 // Componentes Globais
 import NavMenuComp from '@/shared/navbar/components/NavMenuComp';
@@ -18,52 +17,6 @@ import MessengerWindowComp from '@/shared/messenger/MessengerWindowComp';
 import ProfileStatsCardComp from '@/shared/profile/components/ProfileStatsCardComp';
 import MenuListComp from '@/shared/profile/components/MenuListComp';
 import ProfileVisitorsComp from '@/shared/visitors/components/ProfileVisitorsComp';
-
-const ToggleButton = styled.button`
-  display: none;
-  position: fixed;
-  left: 10px;
-  top: 70px;
-  z-index: 1100;
-  padding: 10px;
-  border-radius: 5px;
-  border: none;
-  background: transparent;
-  color: ${props => props.theme === 'dark' ? '#ffffff' : '#2c2c2c'};
-
-  @media (max-width: 991px) {
-    display: block;
-  }
-`;
-
-const SidebarColumn = styled(Col)`
-  @media (max-width: 991px) {
-    position: fixed;
-    top: 0;
-    left: ${props => props.isOpen ? '0' : '-100%'};
-    height: 100vh;
-    width: 300px;
-    z-index: 1000;
-    padding-top: 80px;
-    transition: all 0.3s ease;
-    overflow-y: auto;
-    background: transparent;
-  }
-`;
-
-const Overlay = styled.div`
-  display: none;
-  @media (max-width: 991px) {
-    display: ${props => props.isOpen ? 'block' : 'none'};
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0,0,0,0.5);
-    z-index: 999;
-  }
-`;
 
 export default function FeedMainComp() {
   const { theme } = useTheme();
@@ -81,7 +34,7 @@ export default function FeedMainComp() {
         
         <Container>
           <Row>
-            <SidebarColumn lg={3} isOpen={isOpen} theme={theme}>
+            <SidebarColumn as={Col} lg={3} isOpen={isOpen} theme={theme}>
               <ProfileCardComp theme={theme}/>
               <ProfileStatsCardComp theme={theme}/>
               <MenuListComp theme={theme} /> 
