@@ -73,7 +73,7 @@ export const ActionButtons = styled.div`
 `;
 
 export const ActionButton = styled.button`
-  background: ${props => props.danger ? 'rgba(255, 59, 48, 0.2)' : 'rgba(255, 255, 255, 0.1)'};
+  background: ${props => props.isDanger ? 'rgba(255, 59, 48, 0.2)' : 'rgba(255, 255, 255, 0.1)'};
   border: none;
   width: 32px;
   height: 32px;
@@ -86,6 +86,6 @@ export const ActionButton = styled.button`
 
   &:hover {
     transform: scale(1.1);
-    background: ${props => props.danger ? 'rgba(255, 59, 48, 0.3)' : 'rgba(255, 255, 255, 0.2)'};
+    background: ${props => props.isDanger ? 'rgba(255, 59, 48, 0.3)' : 'rgba(255, 255, 255, 0.2)'};
   }
 `;

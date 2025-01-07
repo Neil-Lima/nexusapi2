@@ -6,8 +6,8 @@ import { GradientBackground } from './styles/PagesStyle';
 import PagesListComp from './PagesListComp';
 import PagesSearchComp from './PagesSearchComp';
 import ProfileCardComp from '@/shared/profile/components/card/components/ProfileCardComp';
-import MenuListComp from '@/shared/menu/MenuListComp';
 import { fetchPages } from './utils/PagesUtils';
+import MenuListComp from '@/shared/profile/components/MenuListComp';
 
 export default function PagesMainComp() {
   const { theme } = useTheme();

@@ -8,11 +8,15 @@ import { faNewspaper, faImage, faVideo, faUser, faInfoCircle } from '@fortawesom
 import PagesDetailPostsComp from './PagesDetailPostsComp';
 import PagesDetailFollowersComp from './PagesDetailFollowersComp';
 import PagesDetailInfoComp from './PagesDetailInfoComp';
-import GalleryPhotoGridComp from '@/shared/gallery/photos/components/GalleryPhotoGridComp';
 import GalleryPhotoUploadComp from '@/shared/gallery/photos/components/GalleryPhotoUploadComp';
-import GalleryActionButtons from '@/shared/gallery/photos/GalleryActionButtons';
-import GalleryAlbumGrid from '@/shared/gallery/photos/components/GalleryAlbumGrid';
-import GalleryPhotoMoodboardComp from '@/shared/gallery/photos/components/GalleryPhotoMoodboardComp';
+import GalleryPhotoGridComp from '@/shared/gallery/photos/components/GalleryPhotoGridComp';
+import GalleryPhotoModalComp from '@/shared/gallery/photos/components/GalleryPhotoModalComp';
+import GalleryPhotoSearchComp from '@/shared/gallery/photos/components/GalleryPhotoSearchComp';
+import GalleryPhotoFilterComp from '@/shared/gallery/photos/components/GalleryPhotoFilterComp';
+import GalleryPhotoActionBarComp from '@/shared/gallery/photos/components/GalleryPhotoActionBarComp';
+import GalleryPhotoOrganizerComp from '@/shared/gallery/photos/components/GalleryPhotoOrganizerComp';
+import GalleryPhotoEditorComp from '@/shared/gallery/photos/components/GalleryPhotoEditorComp';
+import GalleryPhotoCommentsComp from '@/shared/gallery/photos/components/GalleryPhotoCommentsComp';
 
 export default function PagesDetailTabsComp({ pageData }) {
   const { theme } = useTheme();
@@ -128,12 +132,11 @@ export default function PagesDetailTabsComp({ pageData }) {
 
   const renderPhotoSection = () => (
     <div>
+      <GalleryPhotoActionBarComp />
+      <GalleryPhotoSearchComp />
+      <GalleryPhotoFilterComp />
       <GalleryPhotoUploadComp />
-      <GalleryActionButtons 
-        viewMode={viewMode}
-        setViewMode={setViewMode}
-        handleSort={handleSort}
-      />
+      
       {viewMode === 'grid' ? (
         <GalleryPhotoGridComp 
           photos={photos}
@@ -145,7 +148,7 @@ export default function PagesDetailTabsComp({ pageData }) {
           onPhotoSelect={handlePhotoSelect}
         />
       ) : viewMode === 'album' ? (
-        <GalleryAlbumGrid 
+        <GalleryPhotoOrganizerComp  
           albums={albums}
           onEdit={handleEdit}
           onDelete={handleDelete}
@@ -155,12 +158,22 @@ export default function PagesDetailTabsComp({ pageData }) {
           onAlbumSelect={handleAlbumSelect}
         />
       ) : (
-        <GalleryPhotoMoodboardComp 
+        <GalleryPhotoEditorComp 
           photos={photos}
           onPhotoMove={handlePhotoMove}
           onPhotoSelect={handlePhotoSelect}
           selectedPhoto={selectedPhoto}
         />
+      )}
+
+      {selectedPhoto && (
+        <GalleryPhotoModalComp
+          show={!!selectedPhoto}
+          photo={selectedPhoto}
+          onHide={() => setSelectedPhoto(null)}
+        >
+          <GalleryPhotoCommentsComp photoId={selectedPhoto.id} />
+        </GalleryPhotoModalComp>
       )}
     </div>
   );

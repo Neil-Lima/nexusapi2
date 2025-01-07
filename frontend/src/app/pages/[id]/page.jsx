@@ -7,7 +7,7 @@ import NavMenuComp from '@/shared/navbar/components/NavMenuComp';
 
 export default function PageDetailPage({ params }) {
   const { theme } = useTheme();
-  const id = React.use(params).id;
+  const id = params.id;
 
   return (
     <>
@@ -16,6 +16,5 @@ export default function PageDetailPage({ params }) {
       <PagesDetailMainComp id={id} />
     </GradientBackground>
     </>
-   
   );
 }

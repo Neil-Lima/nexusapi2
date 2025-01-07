@@ -8,7 +8,7 @@ import { usePostCard } from '@/shared/post/card/utils/PostCardUtils';
 
 export default function PagesDetailPostsComp() {
   const { theme } = useTheme();
-  const { posts } = usePostCard();
+  const { posts = [] } = usePostCard();
   const [visiblePosts, setVisiblePosts] = useState(3);
 
   return (

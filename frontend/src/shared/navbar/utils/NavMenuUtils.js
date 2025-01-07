@@ -41,7 +41,7 @@ export const menuItems = {
         { title: 'Vendas', path: '/marketplace' },
         { title: 'Videos', path: '/videos' },
         { title: 'Video Studio', path: '/videostudio' },
-        { title: 'Paginas', path: '/' },
+        { title: 'Paginas', path: '/pages' },
         { title: 'Perfil de Usuario', path: '/profileuser' },
         { title: 'Amigos para adicionar', path: '/' }
     ],
