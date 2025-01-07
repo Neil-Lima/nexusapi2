@@ -19,55 +19,81 @@ import ProfileStatsCardComp from '@/shared/profile/components/ProfileStatsCardCo
 import MenuListComp from '@/shared/profile/components/MenuListComp';
 import ProfileVisitorsComp from '@/shared/visitors/components/ProfileVisitorsComp';
 
-const SidebarButton = styled(Button)`
-  position: fixed;
-  left: 20px;
-  top: 80px;
-  z-index: 1000;
+const ToggleButton = styled.button`
   display: none;
+  position: fixed;
+  left: 10px;
+  top: 70px;
+  z-index: 1100;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  background: ${props => props.theme === 'dark' ? '#333' : '#fff'};
+  color: ${props => props.theme === 'dark' ? '#fff' : '#333'};
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+
   @media (max-width: 991px) {
     display: block;
   }
 `;
 
-const Sidebar = styled(Col)`
-  transition: transform 0.3s ease-in-out;
+const SidebarColumn = styled(Col)`
+  transition: all 0.3s ease;
   background: ${props => props.theme === 'dark' ? '#1a1a1a' : '#fff'};
+  
   @media (max-width: 991px) {
     position: fixed;
-    left: 0;
     top: 0;
+    left: ${props => props.isOpen ? '0' : '-100%'};
     height: 100vh;
+    width: 300px !important;
+    z-index: 1000;
+    padding: 80px 15px 20px 15px;
+    overflow-y: auto;
+    box-shadow: ${props => props.isOpen ? '2px 0 10px rgba(0,0,0,0.2)' : 'none'};
+  }
+`;
+
+const Overlay = styled.div`
+  display: none;
+  @media (max-width: 991px) {
+    display: ${props => props.isOpen ? 'block' : 'none'};
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.5);
     z-index: 999;
-    padding: 80px 15px;
-    transform: translateX(${props => props.isOpen ? '0' : '-100%'});
-    box-shadow: ${props => props.isOpen ? '2px 0 5px rgba(0,0,0,0.2)' : 'none'};
   }
 `;
 
 export default function FeedMainComp() {
   const { theme } = useTheme();
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
-  const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
+  const toggleSidebar = () => {
+    setIsOpen(!isOpen);
+  };
 
   return (
     <>
       <NavMenuComp />
-      <GradientBackground theme={theme}>     
-        <SidebarButton 
-          onClick={toggleSidebar}
-          variant={theme === 'dark' ? 'light' : 'dark'}
-        >
-          {sidebarOpen ? '✕' : '☰'}
-        </SidebarButton>
+      <GradientBackground theme={theme}>
+        <ToggleButton onClick={toggleSidebar} theme={theme}>
+          {isOpen ? '✕' : '☰'}
+        </ToggleButton>
+        
+        <Overlay isOpen={isOpen} onClick={toggleSidebar} />
+        
         <Container>
           <Row>
-            <Sidebar lg={3} theme={theme} isOpen={sidebarOpen}>
+            <SidebarColumn lg={3} theme={theme} isOpen={isOpen}>
               <ProfileCardComp theme={theme}/>
               <ProfileStatsCardComp theme={theme}/>
-              <MenuListComp theme={theme} /> 
-            </Sidebar>
+              <MenuListComp theme={theme} />
+            </SidebarColumn>
+            
             <Col lg={6}>
               <ProfileVisitorsComp />
               <StoriesComp />
@@ -75,6 +101,7 @@ export default function FeedMainComp() {
               <PostCardComp />
               <LoadMoreComp />
             </Col>
+            
             <Col lg={3}>
               <SuggestionsFriendComp />
               <NewsLatestComp />
