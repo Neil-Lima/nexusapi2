@@ -1,6 +1,6 @@
 import { registerAs } from '@nestjs/config';
-import * as sharp from 'sharp';
-import * as ffmpeg from 'fluent-ffmpeg';
+import sharp from 'sharp';
+import ffmpeg from 'fluent-ffmpeg';
 import * as fs from 'fs-extra';
 import { Buffer } from 'buffer';
 import { createReadStream } from 'fs';
