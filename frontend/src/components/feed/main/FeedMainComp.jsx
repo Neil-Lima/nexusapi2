@@ -28,7 +28,7 @@ const ToggleButton = styled.button`
   padding: 10px;
   border-radius: 5px;
   border: none;
-  background: ${props => props.theme === 'dark' ? '#2c2c2c' : '#ffffff'};
+  background: transparent;
   color: ${props => props.theme === 'dark' ? '#ffffff' : '#2c2c2c'};
 
   @media (max-width: 991px) {
@@ -47,6 +47,7 @@ const SidebarColumn = styled(Col)`
     padding-top: 80px;
     transition: all 0.3s ease;
     overflow-y: auto;
+    background: transparent;
   }
 `;
 
@@ -80,7 +81,7 @@ export default function FeedMainComp() {
         
         <Container>
           <Row>
-            <SidebarColumn lg={3} isOpen={isOpen}>
+            <SidebarColumn lg={3} isOpen={isOpen} theme={theme}>
               <ProfileCardComp theme={theme}/>
               <ProfileStatsCardComp theme={theme}/>
               <MenuListComp theme={theme} /> 
