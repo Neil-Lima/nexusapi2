@@ -6,7 +6,21 @@ export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  getRoot() {
+    return {
+      name: 'Nexus API',
+      version: '1.0.0',
+      status: 'online',
+      timestamp: new Date().toISOString()
+    };
+  }
+
+  @Get('health')
+  getHealth() {
+    return {
+      status: 'healthy',
+      uptime: process.uptime(),
+      timestamp: new Date().toISOString()
+    };
   }
 }
