@@ -1,6 +1,6 @@
 'use client';
 import React, { useState } from 'react';
-import { Container, Row, Col, Button } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 import { useTheme } from '@/context/theme/ThemeContext';
 import { GradientBackground } from '@/styles/GlobalStyles';
 import styled from 'styled-components';
@@ -28,9 +28,8 @@ const ToggleButton = styled.button`
   padding: 10px;
   border-radius: 5px;
   border: none;
-  background: ${props => props.theme === 'dark' ? '#333' : '#fff'};
-  color: ${props => props.theme === 'dark' ? '#fff' : '#333'};
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  background: ${props => props.theme === 'dark' ? '#2c2c2c' : '#ffffff'};
+  color: ${props => props.theme === 'dark' ? '#ffffff' : '#2c2c2c'};
 
   @media (max-width: 991px) {
     display: block;
@@ -38,19 +37,16 @@ const ToggleButton = styled.button`
 `;
 
 const SidebarColumn = styled(Col)`
-  transition: all 0.3s ease;
-  background: ${props => props.theme === 'dark' ? '#1a1a1a' : '#fff'};
-  
   @media (max-width: 991px) {
     position: fixed;
     top: 0;
     left: ${props => props.isOpen ? '0' : '-100%'};
     height: 100vh;
-    width: 300px !important;
+    width: 300px;
     z-index: 1000;
-    padding: 80px 15px 20px 15px;
+    padding-top: 80px;
+    transition: all 0.3s ease;
     overflow-y: auto;
-    box-shadow: ${props => props.isOpen ? '2px 0 10px rgba(0,0,0,0.2)' : 'none'};
   }
 `;
 
@@ -72,28 +68,23 @@ export default function FeedMainComp() {
   const { theme } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
 
-  const toggleSidebar = () => {
-    setIsOpen(!isOpen);
-  };
-
   return (
     <>
       <NavMenuComp />
-      <GradientBackground theme={theme}>
-        <ToggleButton onClick={toggleSidebar} theme={theme}>
+      <GradientBackground theme={theme}>     
+        <ToggleButton onClick={() => setIsOpen(!isOpen)} theme={theme}>
           {isOpen ? '✕' : '☰'}
         </ToggleButton>
         
-        <Overlay isOpen={isOpen} onClick={toggleSidebar} />
+        <Overlay isOpen={isOpen} onClick={() => setIsOpen(false)} />
         
         <Container>
           <Row>
-            <SidebarColumn lg={3} theme={theme} isOpen={isOpen}>
+            <SidebarColumn lg={3} isOpen={isOpen}>
               <ProfileCardComp theme={theme}/>
               <ProfileStatsCardComp theme={theme}/>
-              <MenuListComp theme={theme} />
+              <MenuListComp theme={theme} /> 
             </SidebarColumn>
-            
             <Col lg={6}>
               <ProfileVisitorsComp />
               <StoriesComp />
@@ -101,7 +92,6 @@ export default function FeedMainComp() {
               <PostCardComp />
               <LoadMoreComp />
             </Col>
-            
             <Col lg={3}>
               <SuggestionsFriendComp />
               <NewsLatestComp />
