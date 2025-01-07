@@ -1,4 +1,3 @@
-// CommunitiesMembersComp.jsx
 'use client';
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -20,9 +19,12 @@ import {
 } from '../styles/CommunitiesMembersStyles';
 import { useCommunitiesMembers } from '../utils/CommunitiesMembersUtils';
 
-export default function CommunitiesMembersComp() {
+export default function CommunitiesMembersComp({ communityId }) {
   const { theme } = useTheme();
-  const { members, topMembers } = useCommunitiesMembers();
+  const { members, topMembers, loading, error } = useCommunitiesMembers(communityId);
+
+  if (loading) return <div>Carregando membros...</div>;
+  if (error) return <div>Erro ao carregar membros: {error}</div>;
 
   return (
     <MembersContainer theme={theme}>
@@ -33,13 +35,13 @@ export default function CommunitiesMembersComp() {
 
       <MembersList>
         {members.slice(0, 5).map((member) => (
-          <MemberItem key={member.id} theme={theme}>
-            <MemberAvatar src={member.avatar} alt={member.name} />
+          <MemberItem key={member._id} theme={theme}>
+            <MemberAvatar src={member.profileImage || '/default-avatar.jpg'} alt={member.nome} />
             <MemberInfo>
-              <h4>{member.name}</h4>
+              <h4>{member.nome}</h4>
               <MemberRole theme={theme}>
                 {member.role === 'owner' && <FontAwesomeIcon icon={faCrown} />}
-                {member.role === 'mod' && <FontAwesomeIcon icon={faShield} />}
+                {member.role === 'admin' && <FontAwesomeIcon icon={faShield} />}
                 {member.roleTitle}
               </MemberRole>
             </MemberInfo>
@@ -53,13 +55,13 @@ export default function CommunitiesMembersComp() {
 
       <RankingList>
         {topMembers.map((member, index) => (
-          <RankingItem key={member.id} theme={theme}>
+          <RankingItem key={member._id} theme={theme}>
             <RankingPosition position={index + 1}>#{index + 1}</RankingPosition>
-            <MemberAvatar src={member.avatar} alt={member.name} />
+            <MemberAvatar src={member.profileImage || '/default-avatar.jpg'} alt={member.nome} />
             <RankingInfo>
-              <h4>{member.name}</h4>
+              <h4>{member.nome}</h4>
               <RankingPoints theme={theme}>
-                {member.points} pontos
+                Membro desde {new Date(member.joinedAt).toLocaleDateString()}
               </RankingPoints>
             </RankingInfo>
           </RankingItem>

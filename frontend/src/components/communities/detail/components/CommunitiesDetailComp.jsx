@@ -39,9 +39,19 @@ import { useCommunitiesDetail } from '../utils/CommunitiesDetailUtils';
 
 export default function CommunitiesDetailComp({ id }) {
   const { theme } = useTheme();
-  const { community, handleJoin, handleLike, handleShare } = useCommunitiesDetail(id);
+  const { 
+    community, 
+    loading, 
+    error, 
+    handleJoin, 
+    handleLeave 
+  } = useCommunitiesDetail(id);
 
-  if (!community) return null;
+  if (loading) return <div>Carregando...</div>;
+  if (error) return <div>Erro: {error}</div>;
+  if (!community) return <div>Comunidade não encontrada</div>;
+
+  const isParticipating = community.members?.includes(id);
 
   return (
     <Container>
@@ -49,26 +59,22 @@ export default function CommunitiesDetailComp({ id }) {
         <Col lg={8}>
           <DetailContainer theme={theme}>
             <DetailHeader>
-              <CommunityBanner src={community.banner} alt="Banner" />
-              <CommunityAvatar src={community.avatar} alt={community.name} theme={theme} />
+              <CommunityBanner src={community.coverImage || '/default-cover.jpg'} alt="Banner" />
+              <CommunityAvatar src={community.image || '/default-avatar.jpg'} alt={community.name} theme={theme} />
               <CommunityInfo>
                 <CommunityTitle>{community.name}</CommunityTitle>
                 <CommunityStats>
                   <StatItem theme={theme}>
                     <FontAwesomeIcon icon={faUsers} />
-                    {community.members} membros
+                    {community.stats?.totalMembers || 0} membros
                   </StatItem>
                   <StatItem theme={theme}>
                     <FontAwesomeIcon icon={faGlobe} />
-                    {community.language}
+                    {community.privacy}
                   </StatItem>
                   <StatItem theme={theme}>
                     <FontAwesomeIcon icon={faCalendar} />
-                    Criada em {community.createdAt}
-                  </StatItem>
-                  <StatItem theme={theme}>
-                    <FontAwesomeIcon icon={faMapMarker} />
-                    {community.location}
+                    Criada em {new Date(community.createdAt).toLocaleDateString()}
                   </StatItem>
                 </CommunityStats>
               </CommunityInfo>
@@ -76,14 +82,13 @@ export default function CommunitiesDetailComp({ id }) {
 
             <DetailContent>
               <ActionButtons>
-                <ActionButton onClick={handleJoin} theme={theme} primary>
-                  <FontAwesomeIcon icon={faUsers} /> Participar
-                </ActionButton>
-                <ActionButton onClick={handleLike} theme={theme}>
-                  <FontAwesomeIcon icon={faHeart} /> Curtir
-                </ActionButton>
-                <ActionButton onClick={handleShare} theme={theme}>
-                  <FontAwesomeIcon icon={faShare} /> Compartilhar
+                <ActionButton 
+                  onClick={isParticipating ? handleLeave : handleJoin} 
+                  theme={theme} 
+                  primary
+                >
+                  <FontAwesomeIcon icon={faUsers} />
+                  {isParticipating ? 'Sair' : 'Participar'}
                 </ActionButton>
               </ActionButtons>
 
@@ -92,8 +97,8 @@ export default function CommunitiesDetailComp({ id }) {
                 <p>{community.description}</p>
               </DetailSection>
 
-              <CommunitiesForumComp />
-              <CommunitiesPollComp />
+              <CommunitiesForumComp communityId={id} />
+              <CommunitiesPollComp communityId={id} />
             </DetailContent>
           </DetailContainer>
         </Col>
@@ -104,16 +109,16 @@ export default function CommunitiesDetailComp({ id }) {
               <FontAwesomeIcon icon={faCrown} /> Dono
             </h3>
             <OwnerInfo theme={theme}>
-              <img src={community.owner.avatar} alt={community.owner.name} />
+              <img src={community.owner?.profileImage || '/default-avatar.jpg'} alt={community.owner?.nome} />
               <div>
-                <h4>{community.owner.name}</h4>
-                <span>Desde {community.owner.since}</span>
+                <h4>{community.owner?.nome}</h4>
+                <span>Desde {new Date(community.createdAt).toLocaleDateString()}</span>
               </div>
             </OwnerInfo>
           </OwnerSection>
           
-          <CommunitiesMembersComp />
-          <CommunitiesRelatedComp />
+          <CommunitiesMembersComp communityId={id} />
+          <CommunitiesRelatedComp communityId={id} />
         </Col>
       </Row>
     </Container>

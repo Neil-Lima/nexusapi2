@@ -1,4 +1,3 @@
-// CommunitiesRelatedComp.jsx
 'use client';
 import React from 'react';
 import { useTheme } from '@/context/theme/ThemeContext';
@@ -10,9 +9,12 @@ import {
 } from '../styles/CommunitiesRelatedStyles';
 import { useCommunitiesRelated } from '../utils/CommunitiesRelatedUtils';
 
-export default function CommunitiesRelatedComp() {
+export default function CommunitiesRelatedComp({ communityId }) {
   const { theme } = useTheme();
-  const { relatedCommunities } = useCommunitiesRelated();
+  const { relatedCommunities, loading, error } = useCommunitiesRelated(communityId);
+
+  if (loading) return <div>Carregando comunidades relacionadas...</div>;
+  if (error) return <div>Erro ao carregar comunidades relacionadas: {error}</div>;
 
   return (
     <RelatedContainer theme={theme}>
@@ -20,11 +22,14 @@ export default function CommunitiesRelatedComp() {
       
       <RelatedList>
         {relatedCommunities.map(community => (
-          <RelatedItem key={community.id} theme={theme}>
-            <img src={community.image} alt={community.name} />
+          <RelatedItem key={community._id} theme={theme}>
+            <img 
+              src={community.image || '/default-community.jpg'} 
+              alt={community.name} 
+            />
             <RelatedInfo>
               <h4>{community.name}</h4>
-              <span>{community.members} membros</span>
+              <span>{community.stats?.totalMembers || 0} membros</span>
             </RelatedInfo>
           </RelatedItem>
         ))}

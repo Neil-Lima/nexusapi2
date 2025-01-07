@@ -9,9 +9,18 @@ import {
   ModalHeader,
   CloseButton
 } from '../styles/CommunitiesModalStyles';
+import { useCommunitiesModal } from '../utils/CommunitiesModalUtils';
 
 export default function CommunitiesModalComp({ show, onClose }) {
   const { theme } = useTheme();
+  const { loading, error, handleSubmit } = useCommunitiesModal();
+
+  const handleCreateSuccess = async (formData) => {
+    const success = await handleSubmit(formData);
+    if (success) {
+      onClose();
+    }
+  };
 
   return (
     <StyledModal
@@ -26,7 +35,17 @@ export default function CommunitiesModalComp({ show, onClose }) {
           <FontAwesomeIcon icon={faTimes} />
         </CloseButton>
       </ModalHeader>
-      <CommunitiesCreateComp onClose={onClose} />
+      
+      {error && (
+        <div style={{ color: 'red', padding: '10px 20px' }}>
+          {error}
+        </div>
+      )}
+
+      <CommunitiesCreateComp 
+        onSubmit={handleCreateSuccess}
+        loading={loading}
+      />
     </StyledModal>
   );
 }

@@ -20,7 +20,7 @@ import { useCommunitiesCard } from '../utils/CommunitiesCardUtils';
 export default function CommunitiesCardComp({ community }) {
   const { theme } = useTheme();
   const router = useRouter();
-  const { handleJoinCommunity, isParticipating } = useCommunitiesCard();
+  const { handleJoinCommunity, handleLeaveCommunity, isParticipating, loading } = useCommunitiesCard();
 
   const getTypeIcon = (type) => {
     switch(type) {
@@ -31,20 +31,27 @@ export default function CommunitiesCardComp({ community }) {
     }
   };
 
-  const handleCardClick = (e) => {
-    e.preventDefault();
-    router.push(`/communities/${community.id}`);
+  const handleCardClick = () => {
+    router.push(`/communities/${community._id}`);
   };
 
-  const handleJoinClick = (e) => {
+  const handleJoinClick = async (e) => {
     e.stopPropagation();
-    handleJoinCommunity(community.id);
+    try {
+      if (isParticipating(community._id)) {
+        await handleLeaveCommunity(community._id);
+      } else {
+        await handleJoinCommunity(community._id);
+      }
+    } catch (error) {
+      console.error('Erro ao interagir com a comunidade:', error);
+    }
   };
 
   return (
     <CardContainer theme={theme} onClick={handleCardClick}>
       <CardImage>
-        <img src={community.image} alt={community.name} />
+        <img src={community.image || '/default-community.jpg'} alt={community.name} />
       </CardImage>
       
       <CardContent>
@@ -52,13 +59,13 @@ export default function CommunitiesCardComp({ community }) {
         
         <CardInfo>
           <CardType>
-            <FontAwesomeIcon icon={getTypeIcon(community.type)} />
-            {community.type}
+            <FontAwesomeIcon icon={getTypeIcon(community.privacy)} />
+            {community.privacy}
           </CardType>
           
           <CardMembers>
             <FontAwesomeIcon icon={faUsers} />
-            {community.members} membros
+            {community.stats?.totalMembers || 0} membros
           </CardMembers>
           
           <CardCategory theme={theme}>
@@ -68,10 +75,11 @@ export default function CommunitiesCardComp({ community }) {
 
         <JoinButton 
           theme={theme}
-          participating={isParticipating(community.id)}
+          participating={isParticipating(community._id)}
           onClick={handleJoinClick}
+          disabled={loading}
         >
-          {isParticipating(community.id) ? 'Participando' : 'Participar'}
+          {loading ? 'Processando...' : isParticipating(community._id) ? 'Participando' : 'Participar'}
         </JoinButton>
       </CardContent>
     </CardContainer>

@@ -1,48 +1,54 @@
-// CommunitiesForumUtils.js
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { api } from '@/api/api';
 
-export const useCommunitiesForum = () => {
-  const [topics] = useState([
-    {
-      id: 1,
-      title: "Regras da Comunidade",
-      author: "Admin",
-      date: "01/01/2024",
-      replies: 45,
-      likes: 230,
-      isPinned: true
-    },
-    {
-      id: 2,
-      title: "Qual seu anime favorito?",
-      author: "João Silva",
-      date: "05/01/2024",
-      replies: 128,
-      likes: 89,
-      isPinned: false
-    },
-    {
-      id: 3,
-      title: "Eventos de Anime 2024",
-      author: "Maria Santos",
-      date: "10/01/2024",
-      replies: 67,
-      likes: 45,
-      isPinned: false
+export const useCommunitiesForum = (communityId) => {
+  const [topics, setTopics] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchCommunityTopics = async () => {
+      try {
+        const response = await api.get(`/communities/${communityId}`);
+        setTopics(response.data.topics || []);
+      } catch (err) {
+        setError(err.response?.data?.message || 'Erro ao carregar tópicos');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (communityId) {
+      fetchCommunityTopics();
     }
-  ]);
+  }, [communityId]);
 
-  const handleCreateTopic = () => {
-    // Lógica para criar novo tópico
+  const handleCreateTopic = async (title, content) => {
+    try {
+      const response = await api.post(`/communities/${communityId}/topics`, {
+        title,
+        content
+      });
+      setTopics(response.data.topics);
+    } catch (err) {
+      throw new Error(err.response?.data?.message || 'Erro ao criar tópico');
+    }
   };
 
-  const handleLikeTopic = (topicId) => {
-    // Lógica para dar like no tópico
+  const handleLikeTopic = async (topicIndex) => {
+    try {
+      const response = await api.post(`/communities/${communityId}/topics/${topicIndex}/like`);
+      setTopics(response.data.topics);
+    } catch (err) {
+      throw new Error(err.response?.data?.message || 'Erro ao curtir tópico');
+    }
   };
 
   return {
     topics,
+    loading,
+    error,
     handleCreateTopic,
     handleLikeTopic
   };

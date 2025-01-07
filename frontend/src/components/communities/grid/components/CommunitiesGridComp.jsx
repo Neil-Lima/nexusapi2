@@ -18,7 +18,10 @@ import { useCommunitiesGrid } from '../utils/CommunitiesGridUtils';
 
 export default function CommunitiesGridComp({ onCreateClick }) {
   const { theme } = useTheme();
-  const { communities, viewMode, setViewMode } = useCommunitiesGrid();
+  const { communities, viewMode, setViewMode, loading, error } = useCommunitiesGrid();
+
+  if (loading) return <div>Carregando comunidades...</div>;
+  if (error) return <div>Erro ao carregar comunidades: {error}</div>;
 
   return (
     <GridContainer theme={theme}>
@@ -49,7 +52,7 @@ export default function CommunitiesGridComp({ onCreateClick }) {
 
       <Row className={viewMode === 'grid' ? 'g-4' : 'flex-column g-3'}>
         {communities.map((community) => (
-          <Col key={community.id} xs={12} md={viewMode === 'grid' ? 4 : 12}>
+          <Col key={community._id} xs={12} md={viewMode === 'grid' ? 4 : 12}>
             <CommunitiesCardComp 
               community={community}
               viewMode={viewMode}

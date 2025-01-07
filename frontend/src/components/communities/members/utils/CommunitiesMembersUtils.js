@@ -1,39 +1,42 @@
-// CommunitiesMembersUtils.js
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { api } from '@/api/api';
 
-export const useCommunitiesMembers = () => {
-  const [members] = useState([
-    {
-      id: 1,
-      name: "João Silva",
-      avatar: "https://picsum.photos/100/100?random=1",
-      role: "owner",
-      roleTitle: "Dono",
-      points: 1500
-    },
-    {
-      id: 2,
-      name: "Maria Santos",
-      avatar: "https://picsum.photos/100/100?random=2",
-      role: "mod",
-      roleTitle: "Moderador",
-      points: 1200
-    },
-    {
-      id: 3,
-      name: "Pedro Costa",
-      avatar: "https://picsum.photos/100/100?random=3",
-      role: "member",
-      roleTitle: "Membro",
-      points: 950
+export const useCommunitiesMembers = (communityId) => {
+  const [members, setMembers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchCommunityMembers = async () => {
+      try {
+        const response = await api.get(`/communities/${communityId}`);
+        const memberDetails = response.data.memberDetails || [];
+        setMembers(memberDetails.map(detail => ({
+          ...detail.user,
+          role: detail.role,
+          joinedAt: detail.joinedAt
+        })));
+      } catch (err) {
+        setError(err.response?.data?.message || 'Erro ao carregar membros');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (communityId) {
+      fetchCommunityMembers();
     }
-  ]);
+  }, [communityId]);
 
-  const topMembers = [...members].sort((a, b) => b.points - a.points);
+  const topMembers = [...members].sort((a, b) => 
+    new Date(b.joinedAt) - new Date(a.joinedAt)
+  ).slice(0, 5);
 
   return {
     members,
-    topMembers
+    topMembers,
+    loading,
+    error
   };
 };

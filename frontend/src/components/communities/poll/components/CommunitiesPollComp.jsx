@@ -1,4 +1,3 @@
-// CommunitiesPollComp.jsx
 'use client';
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -19,9 +18,22 @@ import {
 } from '../styles/CommunitiesPollStyles';
 import { useCommunitiesPoll } from '../utils/CommunitiesPollUtils';
 
-export default function CommunitiesPollComp() {
+export default function CommunitiesPollComp({ communityId, topicId }) {
   const { theme } = useTheme();
-  const { currentPoll, handleVote, hasVoted, getTotalVotes } = useCommunitiesPoll();
+  const { 
+    currentPoll, 
+    hasVoted, 
+    loading, 
+    error,
+    handleVote, 
+    getTotalVotes 
+  } = useCommunitiesPoll(communityId, topicId);
+
+  if (loading) return <div>Carregando enquete...</div>;
+  if (error) return <div>Erro ao carregar enquete: {error}</div>;
+  if (!currentPoll) return null;
+
+  const totalVotes = getTotalVotes();
 
   return (
     <PollContainer theme={theme}>
@@ -34,23 +46,23 @@ export default function CommunitiesPollComp() {
       <PollQuestion>{currentPoll.question}</PollQuestion>
 
       <OptionsContainer>
-        {currentPoll.options.map((option) => (
-          <OptionItem key={option.id} theme={theme}>
+        {currentPoll.options.map((option, index) => (
+          <OptionItem key={index} theme={theme}>
             <OptionBar 
-              percentage={option.votes / getTotalVotes() * 100}
+              percentage={(option.votes.length / totalVotes) * 100}
               theme={theme}
               voted={hasVoted}
             />
-            <OptionText>{option.text}</OptionText>
+            <OptionText>{option.option}</OptionText>
             {hasVoted && (
               <OptionStats>
-                <span>{Math.round(option.votes / getTotalVotes() * 100)}%</span>
-                <span>{option.votes} votos</span>
+                <span>{Math.round((option.votes.length / totalVotes) * 100)}%</span>
+                <span>{option.votes.length} votos</span>
               </OptionStats>
             )}
             {!hasVoted && (
               <VoteButton 
-                onClick={() => handleVote(option.id)}
+                onClick={() => handleVote(index)}
                 theme={theme}
               >
                 <FontAwesomeIcon icon={faCheck} />
@@ -62,7 +74,7 @@ export default function CommunitiesPollComp() {
 
       <PollFooter>
         <FontAwesomeIcon icon={faUsers} />
-        {getTotalVotes()} votos totais
+        {totalVotes} votos totais
       </PollFooter>
     </PollContainer>
   );

@@ -1,14 +1,19 @@
-// CommunitiesCreateUtils.js
 'use client';
 import { useState } from 'react';
+import { api } from '@/api/api';
+import { useRouter } from 'next/navigation';
 
 export const useCommunitiesCreate = () => {
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   const [formData, setFormData] = useState({
     name: '',
     description: '',
     category: '',
+    privacy: 'public',
     image: null,
-    privacy: 'public'
+    rules: []
   });
 
   const handleInputChange = (e) => {
@@ -21,10 +26,16 @@ export const useCommunitiesCreate = () => {
 
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
-    setFormData(prev => ({
-      ...prev,
-      image: file
-    }));
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setFormData(prev => ({
+          ...prev,
+          image: reader.result
+        }));
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   const handlePrivacyChange = (privacy) => {
@@ -34,13 +45,25 @@ export const useCommunitiesCreate = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
+    setLoading(true);
+    setError(null);
+
+    try {
+      const response = await api.post('/communities', formData);
+      router.push(`/communities/${response.data._id}`);
+    } catch (err) {
+      setError(err.response?.data?.message || 'Erro ao criar comunidade');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return {
     formData,
+    loading,
+    error,
     handleInputChange,
     handleImageUpload,
     handlePrivacyChange,

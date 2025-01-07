@@ -1,4 +1,3 @@
-// CommunitiesCreateComp.jsx
 "use client";
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -15,21 +14,30 @@ import {
 } from "../styles/CommunitiesCreateStyles";
 import { useCommunitiesCreate } from "../utils/CommunitiesCreateUtils";
 
-export default function CommunitiesCreateComp() {
+export default function CommunitiesCreateComp({ onClose }) {
   const { theme } = useTheme();
   const {
     formData,
+    loading,
+    error,
     handleInputChange,
     handleImageUpload,
     handlePrivacyChange,
     handleSubmit,
   } = useCommunitiesCreate();
 
+  const onSubmit = async (e) => {
+    await handleSubmit(e);
+    if (onClose) onClose();
+  };
+
   return (
     <CreateContainer theme={theme}>
       <h2>Criar Nova Comunidade</h2>
 
-      <CreateForm onSubmit={handleSubmit}>
+      {error && <div style={{ color: 'red', marginBottom: '1rem' }}>{error}</div>}
+
+      <CreateForm onSubmit={onSubmit}>
         <FormGroup>
           <label>Nome da Comunidade</label>
           <input
@@ -38,6 +46,7 @@ export default function CommunitiesCreateComp() {
             value={formData.name}
             onChange={handleInputChange}
             placeholder="Digite o nome da comunidade"
+            required
           />
         </FormGroup>
 
@@ -48,6 +57,7 @@ export default function CommunitiesCreateComp() {
             value={formData.description}
             onChange={handleInputChange}
             placeholder="Descreva sua comunidade"
+            required
           />
         </FormGroup>
 
@@ -57,22 +67,16 @@ export default function CommunitiesCreateComp() {
             name="category"
             value={formData.category}
             onChange={handleInputChange}
+            required
           >
-            <option value="" theme={theme}>
-              Selecione uma categoria
-            </option>
-            <option value="anime" theme={theme}>
-              Anime/Mangá
-            </option>
-            <option value="games" theme={theme}>
-              Games
-            </option>
-            <option value="music" theme={theme}>
-              Música
-            </option>
-            <option value="sports" theme={theme}>
-              Esportes
-            </option>
+            <option value="">Selecione uma categoria</option>
+            <option value="Anime/Mangá">Anime/Mangá</option>
+            <option value="Games">Games</option>
+            <option value="Música">Música</option>
+            <option value="Esportes">Esportes</option>
+            <option value="Tecnologia">Tecnologia</option>
+            <option value="Arte">Arte</option>
+            <option value="Literatura">Literatura</option>
           </select>
         </FormGroup>
 
@@ -80,7 +84,11 @@ export default function CommunitiesCreateComp() {
           <div className="upload-area">
             <FontAwesomeIcon icon={faImage} />
             <span>Upload da Imagem</span>
-            <input type="file" onChange={handleImageUpload} accept="image/*" />
+            <input 
+              type="file" 
+              onChange={handleImageUpload} 
+              accept="image/*" 
+            />
           </div>
         </ImageUpload>
 
@@ -110,8 +118,12 @@ export default function CommunitiesCreateComp() {
           </PrivacyOption>
         </PrivacyOptions>
 
-        <SubmitButton type="submit" theme={theme}>
-          Criar Comunidade
+        <SubmitButton 
+          type="submit" 
+          theme={theme}
+          disabled={loading}
+        >
+          {loading ? 'Criando...' : 'Criar Comunidade'}
         </SubmitButton>
       </CreateForm>
     </CreateContainer>
