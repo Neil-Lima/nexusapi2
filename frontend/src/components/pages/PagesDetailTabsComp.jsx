@@ -17,6 +17,7 @@ import GalleryPhotoActionBarComp from '@/shared/gallery/photos/components/Galler
 import GalleryPhotoOrganizerComp from '@/shared/gallery/photos/components/GalleryPhotoOrganizerComp';
 import GalleryPhotoEditorComp from '@/shared/gallery/photos/components/GalleryPhotoEditorComp';
 import GalleryPhotoCommentsComp from '@/shared/gallery/photos/components/GalleryPhotoCommentsComp';
+import MenuListComp from '@/shared/profile/components/MenuListComp';
 
 export default function PagesDetailTabsComp({ pageData }) {
   const { theme } = useTheme();
