@@ -8,6 +8,10 @@ export const HeaderContainer = styled.div`
   color: ${props => props.theme.textColor};
   overflow: hidden;
   margin-bottom: 24px;
+
+  @media (max-width: 768px) {
+    margin-bottom: 16px;
+  }
 `;
 
 export const CoverSection = styled.div`
@@ -21,12 +25,21 @@ export const CoverSection = styled.div`
     cursor: pointer;
     transition: filter 0.3s ease;
   }
+
+  @media (max-width: 768px) {
+    height: 200px;
+  }
 `;
 
 export const ProfileSection = styled.div`
   position: relative;
   padding: 20px 30px;
   min-height: 200px;
+
+  @media (max-width: 768px) {
+    padding: 15px;
+    min-height: 160px;
+  }
 `;
 
 export const ProfileImageContainer = styled.div`
@@ -47,12 +60,26 @@ export const ProfileImageContainer = styled.div`
     object-fit: cover;
     cursor: pointer;
   }
+
+  @media (max-width: 768px) {
+    width: 120px;
+    height: 120px;
+    left: 50%;
+    transform: translateX(-50%);
+    top: -60px;
+  }
 `;
 
 export const UserInfoSection = styled.div`
   margin-left: 190px;
   color: ${props => props.theme.textColor};
   padding-top: 10px;
+
+  @media (max-width: 768px) {
+    margin-left: 0;
+    margin-top: 70px;
+    text-align: center;
+  }
 `;
 
 export const UserName = styled.h1`
@@ -61,6 +88,13 @@ export const UserName = styled.h1`
   margin-bottom: 20px;
   display: flex;
   align-items: center;
+
+  @media (max-width: 768px) {
+    font-size: 1.8rem;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: center;
+  }
 `;
 
 export const UserDetailsGrid = styled.div`
@@ -71,6 +105,11 @@ export const UserDetailsGrid = styled.div`
   padding: 15px 0;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
 `;
 
 export const DetailItem = styled.div`
@@ -81,6 +120,10 @@ export const DetailItem = styled.div`
   
   svg {
     opacity: 0.8;
+  }
+
+  @media (max-width: 768px) {
+    justify-content: center;
   }
 `;
 
@@ -94,6 +137,11 @@ export const ActionSection = styled.div`
   display: flex;
   gap: 12px;
   margin-top: 20px;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: stretch;
+  }
 `;
 
 export const Button = styled.button`
@@ -193,6 +241,13 @@ export const EditableField = styled.div`
     resize: vertical;
     min-height: 100px;
   }
+
+  @media (max-width: 768px) {
+    input, textarea {
+      font-size: 14px;
+      padding: 8px;
+    }
+  }
 `;
 
 export const StatusBadge = styled.span`
@@ -213,5 +268,10 @@ export const StatusBadge = styled.span`
     height: 8px;
     border-radius: 50%;
     background: ${props => props.online ? '#fff' : '#ccc'};
+  }
+
+  @media (max-width: 768px) {
+    margin-left: 0;
+    justify-content: center;
   }
 `;
