@@ -65,4 +65,3 @@ export const TabContent = styled.div`
     padding: 15px;
   }
 `;
-//ola mundo
