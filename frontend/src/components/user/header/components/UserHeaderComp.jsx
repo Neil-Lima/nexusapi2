@@ -187,7 +187,7 @@ function UserHeaderComp({ user, isOwnProfile, friendStatus, onFriendAction }) {
                     <FontAwesomeIcon icon={faCheck} />
                     {isUpdating ? 'Salvando...' : 'Salvar Alterações'}
                   </PrimaryButton>
-                  <SecondaryButton onClick={() => setIsEditing(false)}>
+                  <SecondaryButton onClick={() => setIsEditing(false)} theme={theme}>
                     <FontAwesomeIcon icon={faTimes} />
                     Cancelar
                   </SecondaryButton>
