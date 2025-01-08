@@ -193,7 +193,7 @@ function UserHeaderComp({ user, isOwnProfile, friendStatus, onFriendAction }) {
                   </SecondaryButton>
                 </>
               ) : (
-                <PrimaryButton onClick={() => setIsEditing(true)}>
+                <PrimaryButton onClick={() => setIsEditing(true)}theme={theme} >
                   <FontAwesomeIcon icon={faEdit} />
                   Editar Perfil
                 </PrimaryButton>
