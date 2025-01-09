@@ -22,7 +22,8 @@ import {
   AudioPlayer,
   PollContainer,
   PollOption,
-  PollBar
+  PollBar,
+  MediaCaption
 } from '../styles/PostCardStyles';
 import { usePostCard } from '../utils/PostCardUtils';
 
@@ -38,29 +39,45 @@ function PostCardComp() {
   const renderMedia = (post) => {
     if (!post.media) return null;
 
-    switch (post.mediaType) {
-      case 'image':
-        return <PostImage src={post.media} alt="Post content" theme={theme} />;
-      case 'video':
-        return (
-          <MediaContainer theme={theme}>
+    return (
+      <MediaContainer theme={theme}>
+        {post.mediaType === 'image' && (
+          <>
+            <PostImage src={post.media} alt={post.mediaCaption || "Conteúdo do post"} theme={theme} />
+            {post.mediaCaption && (
+              <MediaCaption theme={theme}>
+                {post.mediaCaption}
+              </MediaCaption>
+            )}
+          </>
+        )}
+        {post.mediaType === 'video' && (
+          <>
             <video controls src={post.media} />
-          </MediaContainer>
-        );
-      case 'audio':
-        return (
+            {post.mediaCaption && (
+              <MediaCaption theme={theme}>
+                {post.mediaCaption}
+              </MediaCaption>
+            )}
+          </>
+        )}
+        {post.mediaType === 'audio' && (
           <AudioPlayer theme={theme}>
             <audio controls src={post.media} />
+            {post.mediaCaption && (
+              <MediaCaption theme={theme}>
+                {post.mediaCaption}
+              </MediaCaption>
+            )}
           </AudioPlayer>
-        );
-      default:
-        return null;
-    }
+        )}
+      </MediaContainer>
+    );
   };
 
   const renderPoll = (post) => {
     if (!post.poll) return null;
-    
+
     const totalVotes = post.poll.options.reduce((sum, option) => sum + option.votes.length, 0);
 
     return (
@@ -70,7 +87,7 @@ function PostCardComp() {
           const hasVoted = postActions.userVote === index;
 
           return (
-            <PollOption 
+            <PollOption
               key={index}
               onClick={() => postActions.handlePollVote(post._id, index)}
               $hasVoted={hasVoted}
@@ -109,22 +126,22 @@ function PostCardComp() {
 
           <PostFooter>
             <PostActions>
-              <ActionButton 
-                onClick={() => postActions.handleLike(post._id)} 
+              <ActionButton
+                onClick={() => postActions.handleLike(post._id)}
                 $isActive={postActions.isLiked}
                 theme={theme}
               >
                 <FontAwesomeIcon icon={faHeart} />
                 <span>{post.likes.length} Curtidas</span>
               </ActionButton>
-              <ActionButton 
+              <ActionButton
                 onClick={() => postActions.setShowComments(!postActions.showComments)}
                 theme={theme}
               >
                 <FontAwesomeIcon icon={faComment} />
                 <span>{post.comments.length} Comentários</span>
               </ActionButton>
-              <ActionButton 
+              <ActionButton
                 onClick={postActions.handleShare}
                 theme={theme}
               >
@@ -146,7 +163,7 @@ function PostCardComp() {
                   </div>
                 ))}
                 <CommentInput theme={theme}>
-                  <UserAvatar src={session?.user?.profileImage} alt="Your avatar" theme={theme} />
+                  <UserAvatar src={session?.user?.profileImage} alt="Seu avatar" theme={theme} />
                   <input
                     type="text"
                     placeholder="Escreva um comentário..."

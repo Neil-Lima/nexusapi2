@@ -1,7 +1,16 @@
 'use client';
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faImage, faVideo, faSmile, faPoll, faMicrophone, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { 
+  faImage, 
+  faVideo, 
+  faSmile, 
+  faPoll, 
+  faMicrophone, 
+  faTimes,
+  faUpload,
+  faStop 
+} from '@fortawesome/free-solid-svg-icons';
 import { useTheme } from '@/context/theme/ThemeContext';
 import EmojiPicker from 'emoji-picker-react';
 import {
@@ -18,12 +27,16 @@ import {
   EmojiPickerContainer,
   PollCreator,
   PollOption,
-  AddOptionButton
+  AddOptionButton,
+  MediaCaptionInput,
+  AudioOptionsMenu,
+  AudioOption
 } from '../styles/CreatePostCardStyles';
 import { useCreatePost } from '../utils/CreatePostCardUtils';
 
 function CreatePostComp() {
   const { theme } = useTheme();
+  const audioMenuRef = useRef(null);
   const {
     postText,
     setPostText,
@@ -31,6 +44,8 @@ function CreatePostComp() {
     setShowEmojiPicker,
     selectedMedia,
     mediaPreview,
+    mediaCaption,
+    setMediaCaption,
     showPollCreator,
     pollOptions,
     handleMediaUpload,
@@ -42,13 +57,33 @@ function CreatePostComp() {
     handlePollOptionChange,
     togglePollCreator,
     isSubmitting,
-    userAvatar
+    userAvatar,
+    startRecording,
+    stopRecording,
+    status,
+    showAudioOptions,
+    setShowAudioOptions
   } = useCreatePost();
+
+  const isRecording = status === 'recording';
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (audioMenuRef.current && !audioMenuRef.current.contains(event.target)) {
+        setShowAudioOptions(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [setShowAudioOptions]);
 
   return (
     <CreatePostContainer theme={theme}>
       <CreatePostHeader>
-        <UserAvatar src={userAvatar} alt="Your avatar" theme={theme} />
+        <UserAvatar src={userAvatar} alt="Seu avatar" theme={theme} />
         <PostInput
           placeholder="O que você está pensando?"
           value={postText}
@@ -61,7 +96,7 @@ function CreatePostComp() {
         {mediaPreview && (
           <MediaPreview theme={theme}>
             {selectedMedia.type.startsWith('image') ? (
-              <img src={mediaPreview} alt="Preview" />
+              <img src={mediaPreview} alt="Prévia" />
             ) : selectedMedia.type.startsWith('video') ? (
               <video src={mediaPreview} controls />
             ) : (
@@ -70,6 +105,12 @@ function CreatePostComp() {
             <CloseButton onClick={handleRemoveMedia} theme={theme}>
               <FontAwesomeIcon icon={faTimes} />
             </CloseButton>
+            <MediaCaptionInput
+              placeholder="Adicionar legenda..."
+              value={mediaCaption}
+              onChange={(e) => setMediaCaption(e.target.value)}
+              theme={theme}
+            />
           </MediaPreview>
         )}
 
@@ -116,10 +157,43 @@ function CreatePostComp() {
             <FontAwesomeIcon icon={faVideo} />
             <span>Vídeo</span>
           </MediaButton>
-          <MediaButton onClick={() => document.getElementById('audioUpload').click()} theme={theme}>
-            <FontAwesomeIcon icon={faMicrophone} />
-            <span>Áudio</span>
-          </MediaButton>
+          <div style={{ position: 'relative' }} ref={audioMenuRef}>
+            {isRecording ? (
+              <MediaButton onClick={stopRecording} theme={theme}>
+                <FontAwesomeIcon icon={faStop} />
+                <span>Parar Gravação</span>
+              </MediaButton>
+            ) : (
+              <MediaButton onClick={() => setShowAudioOptions(!showAudioOptions)} theme={theme}>
+                <FontAwesomeIcon icon={faMicrophone} />
+                <span>Áudio</span>
+              </MediaButton>
+            )}
+            {showAudioOptions && !isRecording && (
+              <AudioOptionsMenu theme={theme}>
+                <AudioOption 
+                  onClick={() => {
+                    startRecording();
+                    setShowAudioOptions(false);
+                  }} 
+                  theme={theme}
+                >
+                  <FontAwesomeIcon icon={faMicrophone} />
+                  Gravar áudio
+                </AudioOption>
+                <AudioOption 
+                  onClick={() => {
+                    document.getElementById('audioUpload').click();
+                    setShowAudioOptions(false);
+                  }} 
+                  theme={theme}
+                >
+                  <FontAwesomeIcon icon={faUpload} />
+                  Enviar arquivo
+                </AudioOption>
+              </AudioOptionsMenu>
+            )}
+          </div>
           <MediaButton onClick={() => setShowEmojiPicker(!showEmojiPicker)} theme={theme}>
             <FontAwesomeIcon icon={faSmile} />
             <span>Emoji</span>

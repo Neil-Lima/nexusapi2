@@ -157,6 +157,53 @@ export const EmojiPickerContainer = styled.div`
   }
 `;
 
+export const AudioOptionsMenu = styled.div`
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: ${props => `linear-gradient(${props.theme.gradientDirection}, ${props.theme.primaryColor}, ${props.theme.secondaryColor})`};
+  border-radius: ${props => props.theme.borderRadius};
+  padding: 8px 0;
+  min-width: 150px;
+  box-shadow: ${props => props.theme.boxShadow};
+  z-index: 1000;
+  margin-bottom: 5px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+
+  @media (max-width: 576px) {
+    left: 0;
+    transform: none;
+  }
+`;
+
+export const AudioOption = styled.button`
+  width: 100%;
+  padding: 8px 16px;
+  background: none;
+  border: none;
+  color: ${props => props.theme.textColor};
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: ${props => props.theme.transition};
+  font-size: 14px;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  svg {
+    width: 16px;
+  }
+
+  @media (max-width: 576px) {
+    padding: 6px 12px;
+    font-size: 13px;
+  }
+`;
+
 export const PollCreator = styled.div`
   display: flex;
   flex-direction: column;
