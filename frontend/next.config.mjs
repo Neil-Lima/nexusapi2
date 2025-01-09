@@ -31,7 +31,10 @@ const nextConfig = {
     };
     return config;
   },
-  output: 'standalone'
+  output: 'standalone',
+  experimental: {
+    serverActions: true
+  }
 };
 
 export default nextConfig;

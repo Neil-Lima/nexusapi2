@@ -1,14 +1,20 @@
 'use client';
-import React from 'react';
-import dynamic from 'next/dynamic';
-
-const FeedMainComp = dynamic(() => import('@/components/feed/main/FeedMainComp'), {
-  ssr: false
-});
+import React, { useEffect, useState } from 'react';
+import FeedMainComp from '@/components/feed/main/FeedMainComp';
 
 export default function FeedPage() {
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  if (!isClient) {
+    return null;
+  }
+
   return (
-    <div suppressHydrationWarning>
+    <div>
       <FeedMainComp />
     </div>
   );
