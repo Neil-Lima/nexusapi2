@@ -1,7 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faComments, faPlus, faPinned, faHeart } from '@fortawesome/free-solid-svg-icons';
+import { faComments, faPlus, faThumbtack, faHeart } from '@fortawesome/free-solid-svg-icons';
 import { useTheme } from '@/context/theme/ThemeContext';
 import {
   ForumContainer,
@@ -135,7 +135,7 @@ export default function CommunitiesForumComp({ communityId }) {
           <TopicItem key={topic._id || index} theme={theme}>
             {topic.isPinned && (
               <PinnedBadge theme={theme}>
-                <FontAwesomeIcon icon={faPinned} /> Fixado
+                <FontAwesomeIcon icon={faThumbtack} /> Fixado
               </PinnedBadge>
             )}
             <TopicTitle>{topic.title}</TopicTitle>

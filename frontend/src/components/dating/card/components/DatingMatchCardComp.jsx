@@ -2,7 +2,8 @@
 import React from 'react';
 import { Col } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faStar, faWhatsapp, faEye, faCamera, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
+import { faStar, faEye, faCamera, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
+import { faWhatsapp } from '@fortawesome/free-brands-svg-icons';
 import { useTheme } from '@/context/theme/ThemeContext';
 import {
   MatchCard,
