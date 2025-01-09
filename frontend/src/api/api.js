@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const API_CONFIG = {
-  baseURL: 'https://nexusapibackend.vercel.app',
+  baseURL: 'http://localhost:5000',
   timeout: 30000,
   headers: {
     'Content-Type': 'application/json',
