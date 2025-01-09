@@ -15,7 +15,11 @@ export const usePostCard = (userId) => {
     queryKey: ['posts', userId],
     queryFn: async () => {
       const { data } = await api.get(`/posts?userId=${userId}`);
-      return data;
+      return data.map(post => ({
+        ...post,
+        media: post.media || null,
+        mediaType: post.mediaType || null
+      }));
     }
   });
 

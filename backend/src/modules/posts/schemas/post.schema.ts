@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 import mongoose from 'mongoose';
@@ -8,7 +7,7 @@ export class Post extends Document {
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true })
   author: mongoose.Types.ObjectId;
 
-  @Prop({ required: true })
+  @Prop({ required: false })
   content: string;
 
   @Prop({ type: String, maxlength: 10485760 })

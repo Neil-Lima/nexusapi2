@@ -14,51 +14,34 @@ export const useCreatePost = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [userAvatar, setUserAvatar] = useState('/default_avatar.jpg');
 
+  const processImage = async (file) => {
+    return new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        resolve(reader.result);
+      };
+      reader.readAsDataURL(file);
+    });
+  };
+
   const createPostMutation = useMutation({
     mutationFn: async (postData) => {
-      const formData = new FormData();
-      
-      // Add basic post content
-      formData.append('content', postData.content);
-      
-      // Handle media upload
-      if (postData.media) {
-        const reader = new FileReader();
-        const mediaPromise = new Promise((resolve) => {
-          reader.onloadend = () => resolve(reader.result);
-          reader.readAsDataURL(postData.media);
-        });
-        
-        const mediaBase64 = await mediaPromise;
-        formData.append('media', mediaBase64);
-        formData.append('mediaType', postData.media.type.split('/')[0]);
-      }
-      
-      // Handle poll options
-      if (postData.pollOptions && postData.pollOptions.length >= 2) {
-        formData.append('pollOptions', JSON.stringify(
-          postData.pollOptions.map(option => ({ option }))
-        ));
-      }
-
-      const { data } = await api.post('/posts', formData);
+      const { data } = await api.post('/posts', postData);
       return data;
     },
     onSuccess: () => {
       queryClient.invalidateQueries(['posts']);
       resetForm();
-    },
-    onError: (error) => {
-      console.error('Post creation error:', error.response?.data);
-    },
-    onSettled: () => {
-      setIsSubmitting(false);
     }
   });
 
-  const handleMediaUpload = (event) => {
+  const handleMediaUpload = async (event) => {
     const file = event.target.files[0];
     if (file) {
+      if (file.size > 5 * 1024 * 1024) {
+        console.error('Arquivo muito grande. Máximo 5MB');
+        return;
+      }
       setSelectedMedia(file);
       const reader = new FileReader();
       reader.onloadend = () => {
@@ -115,17 +98,30 @@ export const useCreatePost = () => {
     if ((!postText && !selectedMedia && !showPollCreator) || isSubmitting) return;
 
     setIsSubmitting(true);
-    const postData = {
-      content: postText,
-      media: selectedMedia,
-      pollOptions: showPollCreator ? 
-        pollOptions
-          .filter(option => option.trim())
-          .map(option => ({ option: option.trim() })) 
-        : undefined
-    };
+    try {
+      let mediaBase64 = null;
+      let mediaType = null;
 
-    createPostMutation.mutate(postData);
+      if (selectedMedia) {
+        mediaBase64 = await processImage(selectedMedia);
+        mediaType = selectedMedia.type.split('/')[0];
+      }
+
+      const postData = {
+        content: postText,
+        media: mediaBase64,
+        mediaType: mediaType,
+        pollOptions: showPollCreator ? pollOptions.filter(option => option.trim()).map(option => ({
+          option: option
+        })) : undefined
+      };
+
+      await createPostMutation.mutateAsync(postData);
+    } catch (error) {
+      console.error('Erro ao criar post:', error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return {
