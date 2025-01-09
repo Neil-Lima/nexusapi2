@@ -96,6 +96,30 @@ export const MediaPreview = styled.div`
   }
 `;
 
+export const MediaCaptionInput = styled.input`
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  border-radius: ${props => props.theme.borderRadius};
+  color: ${props => props.theme.textColor};
+  
+  &::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+  }
+  
+  &:focus {
+    outline: none;
+    background: rgba(255, 255, 255, 0.15);
+  }
+
+  @media (max-width: 576px) {
+    padding: 8px;
+    font-size: 14px;
+  }
+`;
+
 export const CloseButton = styled.button`
   position: absolute;
   top: 10px;

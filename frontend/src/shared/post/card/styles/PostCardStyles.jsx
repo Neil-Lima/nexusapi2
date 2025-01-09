@@ -332,3 +332,12 @@ export const CommentInput = styled.div`
   }
 `;
 
+export const MediaCaption = styled.p`
+  padding: 10px;
+  margin: 0;
+  color: ${props => props.theme.textColor};
+  font-size: 14px;
+  background: rgba(0, 0, 0, 0.5);
+  border-bottom-left-radius: ${props => props.theme.borderRadius};
+  border-bottom-right-radius: ${props => props.theme.borderRadius};
+`;
