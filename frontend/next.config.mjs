@@ -16,24 +16,28 @@ const nextConfig = {
   },
   reactStrictMode: true,
   webpack: (config, { isServer }) => {
-    if (!isServer) {
-      config.resolve.fallback = {
+    config.resolve = {
+      ...config.resolve,
+      alias: {
+        ...config.resolve.alias,
+      },
+      fallback: {
         ...config.resolve.fallback,
         fs: false,
         module: false,
-        worker_threads: false,
-      };
-    }
+      }
+    };
     config.module = {
       ...config.module,
-      exprContextCritical: false,
       unknownContextCritical: false,
+      exprContextCritical: false,
+      unknownContextRegExp: /$^/,
+      exprContextRegExp: /$^/,
     };
     return config;
   },
-  output: 'standalone',
   experimental: {
-    serverActions: true
+    // Removed deprecated options
   }
 };
 
