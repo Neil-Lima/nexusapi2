@@ -22,12 +22,22 @@ const nextConfig = {
         fs: false,
         module: false,
         worker_threads: false,
+        workers: false,
+        child_process: false,
+        net: false,
+        dns: false,
+        tls: false,
+        webworker: false
       };
     }
     config.module = {
       ...config.module,
       exprContextCritical: false,
       unknownContextCritical: false,
+    };
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      'web-worker': false
     };
     return config;
   },
