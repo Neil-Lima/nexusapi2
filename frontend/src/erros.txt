@@ -1,59 +1,144 @@
-Tamanho da mídia: 116803 caracteres
-Primeiros 100 caracteres da mídia: data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/7QA2UGhvdG9zaG9wIDMuMAA4QklNBAQAAAAAABkcAmcAFDF6Z
+11:32:11 AM: Netlify Build                                                 
+11:32:11 AM: ────────────────────────────────────────────────────────────────
+11:32:11 AM: ​
+11:32:11 AM: ❯ Version
+11:32:11 AM:   @netlify/build 29.58.2
+11:32:11 AM: ​
+11:32:11 AM: ❯ Flags
+11:32:11 AM:   accountId: 63ff5dd5bbd603120c881245
+11:32:11 AM:   baseRelDir: true
+11:32:11 AM:   buildId: 67812f28533321053211affe
+11:32:11 AM:   deployId: 67812f28533321053211b000
+11:32:12 AM: ​
+11:32:12 AM: ❯ Current directory
+11:32:12 AM:   /opt/build/repo/frontend
+11:32:12 AM: ​
+11:32:12 AM: ❯ Config file
+11:32:12 AM:   /opt/build/repo/netlify.toml
+11:32:12 AM: ​
+11:32:12 AM: ❯ Context
+11:32:12 AM:   production
+11:32:12 AM: ​
+11:32:12 AM: ❯ Using Next.js Runtime - v5.9.3
+11:32:14 AM: No Next.js cache to restore
+11:32:14 AM: ​
+11:32:14 AM: build.command from netlify.toml                               
+11:32:14 AM: ────────────────────────────────────────────────────────────────
+11:32:14 AM: ​
+11:32:14 AM: $ CI= npm install --legacy-peer-deps && npm run build
+11:32:15 AM: removed 12 packages, and audited 570 packages in 1s
+11:32:15 AM: 177 packages are looking for funding
+11:32:15 AM:   run `npm fund` for details
+11:32:15 AM: 4 vulnerabilities (3 low, 1 high)
+11:32:15 AM: To address all issues (including breaking changes), run:
+11:32:15 AM:   npm audit fix --force
+11:32:15 AM: Run `npm audit` for details.
+11:32:15 AM: > frontend@0.1.0 build
+11:32:15 AM: > next build
+11:32:15 AM: ⚠ No build cache found. Please configure build caching for faster rebuilds. Read more: https://nextjs.org/docs/messages/no-cache
+11:32:15 AM:    ▲ Next.js 14.1.0
+11:32:15 AM:    Creating an optimized production build ...
+11:32:30 AM: (node:4455) [DEP_WEBPACK_MODULE_UPDATE_HASH] DeprecationWarning: Module.updateHash: Use new ChunkGraph API
+11:32:30 AM: (Use `node --trace-deprecation ...` to show where the warning was created)
+11:32:34 AM:  ✓ Compiled successfully
+11:32:34 AM:    Linting and checking validity of types ...
+11:32:34 AM:    Collecting page data ...
+11:32:39 AM:    Generating static pages (0/24) ...
+11:32:42 AM: Failed during stage 'building site': Build script returned non-zero exit code: 2 (https://ntl.fyi/exit-code-2)
+11:32:41 AM: ReferenceError: Worker is not defined
+11:32:41 AM:     at 1057 (/opt/build/repo/frontend/.next/server/chunks/2854.js:7:267429)
+11:32:41 AM:     at t (/opt/build/repo/frontend/.next/server/webpack-runtime.js:1:143)
+11:32:41 AM:     at 93501 (/opt/build/repo/frontend/.next/server/chunks/2854.js:7:369573)
+11:32:41 AM:     at t (/opt/build/repo/frontend/.next/server/webpack-runtime.js:1:143)
+11:32:41 AM:     at 97879 (/opt/build/repo/frontend/.next/server/chunks/2854.js:7:368151)
+11:32:41 AM:     at t (/opt/build/repo/frontend/.next/server/webpack-runtime.js:1:143)
+11:32:41 AM:     at 89573 (/opt/build/repo/frontend/.next/server/chunks/2112.js:1:5695)
+11:32:41 AM:     at t (/opt/build/repo/frontend/.next/server/webpack-runtime.js:1:143)
+11:32:41 AM:     at 80043 (/opt/build/repo/frontend/.next/server/chunks/43.js:1:11225)
+11:32:41 AM:     at t (/opt/build/repo/frontend/.next/server/webpack-runtime.js:1:143)
+11:32:41 AM: Error occurred prerendering page "/user". Read more: https://nextjs.org/docs/messages/prerender-error
+11:32:41 AM: ReferenceError: Worker is not defined
+11:32:41 AM:     at 1057 (/opt/build/repo/frontend/.next/server/chunks/2854.js:7:267429)
+11:32:41 AM:     at t (/opt/build/repo/frontend/.next/server/webpack-runtime.js:1:143)
+11:32:41 AM:     at 93501 (/opt/build/repo/frontend/.next/server/chunks/2854.js:7:369573)
+11:32:41 AM:     at t (/opt/build/repo/frontend/.next/server/webpack-runtime.js:1:143)
+11:32:41 AM:     at 97879 (/opt/build/repo/frontend/.next/server/chunks/2854.js:7:368151)
+11:32:41 AM:     at t (/opt/build/repo/frontend/.next/server/webpack-runtime.js:1:143)
+11:32:41 AM:     at 89573 (/opt/build/repo/frontend/.next/server/chunks/2112.js:1:5695)
+11:32:41 AM:     at t (/opt/build/repo/frontend/.next/server/webpack-runtime.js:1:143)
+11:32:41 AM:     at 80043 (/opt/build/repo/frontend/.next/server/chunks/43.js:1:11225)
+11:32:41 AM:     at t (/opt/build/repo/frontend/.next/server/webpack-runtime.js:1:143)
+11:32:41 AM:    Generating static pages (6/24)
+11:32:41 AM:    Generating static pages (12/24)
+11:32:41 AM: ReferenceError: Worker is not defined
+11:32:41 AM:     at 1057 (/opt/build/repo/frontend/.next/server/chunks/2854.js:7:267429)
+11:32:41 AM:     at t (/opt/build/repo/frontend/.next/server/webpack-runtime.js:1:143)
+11:32:41 AM:     at 93501 (/opt/build/repo/frontend/.next/server/chunks/2854.js:7:369573)
+11:32:41 AM:     at t (/opt/build/repo/frontend/.next/server/webpack-runtime.js:1:143)
+11:32:41 AM:     at 97879 (/opt/build/repo/frontend/.next/server/chunks/2854.js:7:368151)
+11:32:41 AM:     at t (/opt/build/repo/frontend/.next/server/webpack-runtime.js:1:143)
+11:32:41 AM:     at 89573 (/opt/build/repo/frontend/.next/server/chunks/2112.js:1:5695)
+11:32:41 AM:     at t (/opt/build/repo/frontend/.next/server/webpack-runtime.js:1:143)
+11:32:41 AM:     at 51833 (/opt/build/repo/frontend/.next/server/app/feed/page.js:1:14550)
+11:32:41 AM:     at t (/opt/build/repo/frontend/.next/server/webpack-runtime.js:1:143)
+11:32:41 AM: Error occurred prerendering page "/feed". Read more: https://nextjs.org/docs/messages/prerender-error
+11:32:41 AM: ReferenceError: Worker is not defined
+11:32:41 AM:     at 1057 (/opt/build/repo/frontend/.next/server/chunks/2854.js:7:267429)
+11:32:41 AM:     at t (/opt/build/repo/frontend/.next/server/webpack-runtime.js:1:143)
+11:32:41 AM:     at 93501 (/opt/build/repo/frontend/.next/server/chunks/2854.js:7:369573)
+11:32:41 AM:     at t (/opt/build/repo/frontend/.next/server/webpack-runtime.js:1:143)
+11:32:41 AM:     at 97879 (/opt/build/repo/frontend/.next/server/chunks/2854.js:7:368151)
+11:32:41 AM:     at t (/opt/build/repo/frontend/.next/server/webpack-runtime.js:1:143)
+11:32:41 AM:     at 89573 (/opt/build/repo/frontend/.next/server/chunks/2112.js:1:5695)
+11:32:41 AM:     at t (/opt/build/repo/frontend/.next/server/webpack-runtime.js:1:143)
+11:32:41 AM:     at 51833 (/opt/build/repo/frontend/.next/server/app/feed/page.js:1:14550)
+11:32:41 AM:     at t (/opt/build/repo/frontend/.next/server/webpack-runtime.js:1:143)
+11:32:41 AM:    Generating static pages (18/24)
+11:32:41 AM:  ✓ Generating static pages (24/24)
+11:32:41 AM: > Export encountered errors on following paths:
+11:32:41 AM: 	/feed/page: /feed
+11:32:41 AM: 	/user/page: /user
+11:32:41 AM: ​
+11:32:41 AM: "build.command" failed                                        
+11:32:41 AM: ────────────────────────────────────────────────────────────────
+11:32:41 AM: ​
+11:32:41 AM:   Error message
+11:32:41 AM:   Command failed with exit code 1: CI= npm install --legacy-peer-deps && npm run build (https://ntl.fyi/exit-code-1)
+11:32:41 AM: ​
+11:32:41 AM:   Error location
+11:32:41 AM:   In build.command from netlify.toml:
+11:32:41 AM:   CI= npm install --legacy-peer-deps && npm run build
+11:32:41 AM: ​
+11:32:41 AM:   Resolved config
+11:32:41 AM:   build:
+11:32:41 AM:     base: /opt/build/repo/frontend
+11:32:41 AM:     command: CI= npm install --legacy-peer-deps && npm run build
+11:32:41 AM:     commandOrigin: config
+11:32:41 AM:     environment:
+11:32:41 AM:       - CI
+11:32:41 AM:       - NODE_VERSION
+11:32:41 AM:       - NEXT_TELEMETRY_DISABLED
+11:32:41 AM:       - NEXT_PUBLIC_API_URL
+11:32:41 AM:     publish: /opt/build/repo/frontend/.next
+11:32:41 AM:     publishOrigin: config
+11:32:41 AM:   plugins:
+11:32:41 AM:     - inputs: {}
+11:32:41 AM:       origin: config
+11:32:41 AM:       package: '@netlify/plugin-nextjs'
+11:32:42 AM: Build failed due to a user error: Build script returned non-zero exit code: 2
+11:32:42 AM: Failing build: Failed to build site
+11:32:42 AM: Finished processing build request in 1m12.72s
 
-=== VALIDAÇÃO DE MÍDIA ===
-Iniciando validação da mídia
-Tamanho do base64: 116803
-Matches encontrados: Sim
-MIME Type detectado: image/jpeg
-✅ Mídia validada como imagem
-Resultado da validação: { isValid: true, type: 'image', mimeType: 'image/jpeg' }     
-✅ Validação de mídia bem-sucedida
-Iniciando processamento da mídia...
+Diagnosis:
+The build failure is due to a ReferenceError: Worker is not defined at several locations in the build process, such as line 101, line 112, line 125, and line 136.
 
-=== INÍCIO DO PROCESSAMENTO DE MÍDIA ===
-Tamanho do base64: 116803
+Solution:
+This error suggests that there might be an issue with the usage of the Worker object in the codebase. To resolve this issue:
 
-=== VALIDAÇÃO DE MÍDIA ===
-Iniciando validação da mídia
-Tamanho do base64: 116803
-Matches encontrados: Sim
-MIME Type detectado: image/jpeg
-✅ Mídia validada como imagem
-Resultado da validação: { isValid: true, type: 'image', mimeType: 'image/jpeg' }     
-Processando mídia do tipo: image
+Check the codebase for any references to the Worker object and ensure it is correctly imported or defined.
+Ensure that the necessary polyfills or dependencies for the Worker object are properly included in the project.
+If the Worker object is part of a specific package or file:
 
-=== PROCESSAMENTO DE IMAGEM ===
-Removendo cabeçalho base64
-Convertendo base64 para buffer
-Processando imagem com sharp
-Configurações: { maxWidth: 1920, maxHeight: 1080, quality: 80 }
-✅ Imagem processada com sucesso
-✅ Processamento de mídia concluído com sucesso
-=== FIM DO PROCESSAMENTO DE MÍDIA ===
-
-✅ Mídia processada com sucesso
-
-=== SALVANDO POST NO BANCO ===
-✅ Post salvo com sucesso. ID: new ObjectId('677fd7662229fa6fd02f9dae')
-✅ Post populado com dados do autor
-=== FIM DA CRIAÇÃO DO POST ===
-
-[Nest] 6492  - 09/01/2025, 11:04:23   DEBUG [Bootstrap] 📨 GET /users/me
-JWT Guard - User: { userId: '677b1fb20ecff2cdb62dc9cc', email: 'neil.033@hotmail.com' }
-[Nest] 6492  - 09/01/2025, 11:04:23   DEBUG [Bootstrap] 📨 GET /posts?userId=undefined
-JWT Guard - User: { userId: '677b1fb20ecff2cdb62dc9cc', email: 'neil.033@hotmail.com' }
-
-=== BUSCANDO TODOS OS POSTS ===
-UserId: 677b1fb20ecff2cdb62dc9cc
-Página: 1
-Limite: 10
-✅ Posts encontrados: 5
-=== FIM DA BUSCA DE POSTS ===
-
-[object%20Object]:1 
- GET http://localhost:3000/[object%20Object] 404 (Not Found)
-Promise.then		
-onSuccess	@	CreatePostCardUtils.js:33
-await in execute		
-handleCreatePost	@	CreatePostCardUtils.js:119
+Verify that the package is listed in the package.json dependencies.
+If the file was added after the dependencies were cached, consider adding it to the external configuration of the build tool in use.
+This solution should help resolve the ReferenceError: Worker is not defined causing the build failure.
