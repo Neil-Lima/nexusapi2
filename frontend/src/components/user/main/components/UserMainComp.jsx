@@ -9,6 +9,10 @@ import UserExperienceComp from '../../experience/components/UserExperienceComp';
 import { useUserMain } from '../utils/UserMainUtils';
 
 function UserMainComp() {
+  if (typeof window === 'undefined') {
+    return null;
+  }
+
   const { theme } = useTheme();
   const {
     loggedUser,
@@ -22,8 +26,7 @@ function UserMainComp() {
   if (isLoading) return <div>Carregando...</div>;
 
   return (
-    <>     
-        <MainContainer theme={theme}>
+    <MainContainer theme={theme}>
       <Container>
         <Row>
           <Col lg={9}>
@@ -51,8 +54,6 @@ function UserMainComp() {
         </Row>
       </Container>
     </MainContainer>
-    </>
-
   );
 }
 
