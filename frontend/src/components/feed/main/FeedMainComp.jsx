@@ -19,6 +19,10 @@ import MenuListComp from '@/shared/profile/components/MenuListComp';
 import ProfileVisitorsComp from '@/shared/visitors/components/ProfileVisitorsComp';
 
 export default function FeedMainComp() {
+  if (typeof window === 'undefined') {
+    return null;
+  }
+
   const { theme } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
 

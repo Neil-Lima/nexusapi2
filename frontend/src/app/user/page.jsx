@@ -10,11 +10,10 @@ export default function UserPage() {
 
   return (
     <>
-    <NavMenuComp/> 
-    <GradientBackground theme={theme}>
-      <UserMainComp />
-    </GradientBackground>
+      <NavMenuComp/>
+      <GradientBackground theme={theme}>
+        <UserMainComp />
+      </GradientBackground>
     </>
-   
   );
 }

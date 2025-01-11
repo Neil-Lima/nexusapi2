@@ -17,4 +17,8 @@ api.interceptors.request.use((config) => {
   }
   return config
 })
+<<<<<<< HEAD
 //nova branch
+=======
+//nova main
+>>>>>>> erro/netlily
