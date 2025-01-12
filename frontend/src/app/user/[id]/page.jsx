@@ -6,8 +6,6 @@ import { GradientBackground } from '@/styles/GlobalStyles';
 import UserMainComp from '@/components/user/main/components/UserMainComp';
 import NavMenuComp from '@/shared/navbar/components/NavMenuComp';
 
-export const dynamic = 'force-dynamic'
-
 export default function UserProfilePage() {
   const { theme } = useTheme();
   const params = useParams();
