@@ -37,7 +37,8 @@ const nextConfig = {
     };
     config.resolve.alias = {
       ...config.resolve.alias,
-      'web-worker': false
+      'web-worker': false,
+      'worker_threads': false
     };
     return config;
   },
